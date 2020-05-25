@@ -10,20 +10,34 @@ setName = (e)=>{
 
 sent = async (e)=>{
   let form = {'formName':'chat' , 'answers':[{'type':'text','question':'Naam', 'answer':this.props.name},{'type':'text', 'question':'Bericht', 'answer':this.state.bericht}]}
-  this.setState({bericht:''})
   let polygonId
   if(this.props.type ==='chat'){
     polygonId = 16
 }else{
   polygonId = 14
 }
-  let res = await fetch('https://api.ellipsis-earth.com/v2/geomessage/add',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'timestamp': 0, 'type':'polygon', 'elementId':polygonId, 'form':form })})
+let body
+if(this.state.image ===''){
+  body = {'mapId':this.props.mapId, 'timestamp': 0, 'type':'polygon', 'elementId':polygonId, 'form':form }
+}else{
+  body = {'mapId':this.props.mapId, 'timestamp': 0, 'type':'polygon', 'elementId':polygonId, 'form':form, 'image':this.state.image }
+}
+this.setState({bericht:'', image:''})
+
+  let res = await fetch('https://api.ellipsis-earth.com/v2/geomessage/add',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify(body)})
   this.props.getFeed()
 
 }
 
-upload = (e) =>{
-  console.log(e.target.value)
+upload = (evt) =>{
+let reader = new FileReader()
+let file = evt.target.files[0]
+let self = this
+reader.onload = function(upload) {
+    self.setState({image: upload.target.result})
+};
+reader.readAsDataURL(file)
+
   //this.setState({image:e.target.value})
 
 }

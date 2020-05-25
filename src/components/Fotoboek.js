@@ -19,6 +19,10 @@ getFeed = async () =>{
     return(messages)
   }
 
+  showPhoto = async (imageId) => {
+  this.props.addOnScreen('foto')
+  this.props.setImageId(imageId)
+  }
 
 
 render(){
@@ -27,11 +31,13 @@ render(){
     <h1> Fotoboek </h1>
     <input type="button" value= "Ga terug naar de tuin" onClick = {this.props.setOnScreen.bind(this,['menu','tuin','chat'])} />
     <ul>{
-    this.state.messages.map(function(message, index){
+    this.state.messages.map((message) => {
         return(
           <div>
           <li>
+            <a onClick = {this.showPhoto.bind(this, message.image)}>
                 <img src = {message.thumbnail}/>
+              </a>
                 <p>{message.message}</p>
                 </li>
             </div>

@@ -7,6 +7,7 @@ import Fotoboek from './components/Fotoboek'
 import Chat from './components/Chat'
 import Gastenboek from './components/Gastenboek'
 import Tuin from './components/Tuin'
+import Foto from './components/Foto'
 
 class App extends Component {
 
@@ -15,7 +16,8 @@ state = {
   'token':'',
   'password':'rooseneefke2020',
   'onScreen':['login'],
-  'mapId': 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1'
+  'mapId': 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1',
+  'imageId': 'een id'
 }
 
 setName = (e)=>{
@@ -24,6 +26,10 @@ setName = (e)=>{
 
 setPassword = (e)=>{
   this.setState({password:e.target.value})
+}
+
+setImageId = (imageId)=>{
+  this.setState({imageId:imageId})
 }
 
 setToken = async (e) =>{
@@ -39,12 +45,14 @@ setToken = async (e) =>{
 }
 
 setOnScreen = (e) =>{
-
 this.setState({onScreen: e})
 }
 
-checkState = () =>{
-  console.log(this.state)
+
+addOnScreen = (e) =>{
+ let onScreen = [...this.state.onScreen]
+ onScreen.push('foto')
+ this.setState({onScreen: onScreen})
 }
 
   render(){
@@ -63,25 +71,30 @@ checkState = () =>{
     }
     let fotoboek;
     if(this.state.onScreen.includes('fotoboek')){
-      fotoboek = <Fotoboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen}/>
+      fotoboek = <Fotoboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId}/>
     }
     let chat;
     if(this.state.onScreen.includes('chat')){
-      chat = <Chat mapId={this.state.mapId} token = {this.state.token} name = {this.state.name}/>
+      chat = <Chat mapId={this.state.mapId} token = {this.state.token} name = {this.state.name} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId}/>
     }
     let gastenboek;
     if(this.state.onScreen.includes('gastenboek')){
-      gastenboek = <Gastenboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen}/>
+      gastenboek = <Gastenboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId}/>
     }
     let tuin;
     if(this.state.onScreen.includes('tuin')){
       tuin = <Tuin/>
+    }
+    let foto;
+    if(this.state.onScreen.includes('foto')){
+      foto = <Foto setOnScreen = {this.setOnScreen} imageId = {this.state.imageId}/>
     }
 
   return (
     <div className="App">
     {login}
     {programma}
+    {foto}
     {menu}
     {fotoboek}
     {gastenboek}
