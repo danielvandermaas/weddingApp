@@ -67,7 +67,7 @@ checkState = () =>{
     }
     let chat;
     if(this.state.onScreen.includes('chat')){
-      chat = <Chat mapId={this.state.mapId} token = {this.state.token}/>
+      chat = <Chat mapId={this.state.mapId} token = {this.state.token} name = {this.state.name}/>
     }
     let gastenboek;
     if(this.state.onScreen.includes('gastenboek')){

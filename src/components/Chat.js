@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SubmitMessage from './SubmitMessage'
 
 class Chat extends Component {
 
@@ -21,7 +22,6 @@ getFeed = async () =>{
     let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
     messages = await messages.json()
     this.setState({messages:messages})
-    console.log(messages)
   }
 
 
@@ -29,6 +29,7 @@ render(){
   return (
     <div>
     <h1> Chat </h1>
+    <SubmitMessage mapId = {this.props.mapId} token = {this.props.token} getFeed = {this.getFeed()} name = {this.props.name}/>
     <ul>{
     this.state.messages.map(function(message, index){
         return(
