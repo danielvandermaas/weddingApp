@@ -29,7 +29,7 @@ render(){
   return (
     <div>
     <h1> Chat </h1>
-    <SubmitMessage mapId = {this.props.mapId} token = {this.props.token} getFeed = {this.getFeed()} name = {this.props.name}/>
+    <SubmitMessage mapId = {this.props.mapId} token = {this.props.token} getFeed = {this.getFeed} name = {this.props.name} type = 'chat'/>
     <ul>{
     this.state.messages.map(function(message, index){
         return(

@@ -25,6 +25,7 @@ render(){
   return (
     <div>
     <h1> Fotoboek </h1>
+    <input type="button" value= "Ga terug naar de tuin" onClick = {this.props.setOnScreen.bind(this,['menu','tuin','chat'])} />
     <ul>{
     this.state.messages.map(function(message, index){
         return(
@@ -37,7 +38,6 @@ render(){
         )
       })
     }</ul>
-    <input type="button" value= "Ga terug naar de tuin" onClick = {this.props.setOnScreen.bind(this,['menu','tuin','chat'])} />
     </div>
   );
 }

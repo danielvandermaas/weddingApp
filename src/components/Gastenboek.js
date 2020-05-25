@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SubmitMessage from './SubmitMessage'
 
 class Gastenboek extends Component {
 
@@ -28,6 +29,8 @@ class Gastenboek extends Component {
     return (
       <div>
       <h1> Gastenboek </h1>
+      <input type="button" value= "Ga terug naar de tuin" onClick = {this.props.setOnScreen.bind(this,['menu','tuin','chat'])} />
+      <SubmitMessage mapId = {this.props.mapId} token = {this.props.token} getFeed = {this.getFeed} name = {this.props.name} type = 'gastenboek'/>
       <ul>{
       this.state.messages.map(function(message, index){
           return(
@@ -41,7 +44,6 @@ class Gastenboek extends Component {
           )
         })
       }</ul>
-      <input type="button" value= "Ga terug naar de tuin" onClick = {this.props.setOnScreen.bind(this,['menu','tuin','chat'])} />
       </div>
     );
   }
