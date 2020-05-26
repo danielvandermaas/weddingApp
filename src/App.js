@@ -100,7 +100,7 @@ this.setState({onScreen: onScreen})
     }
     let foto;
     if(this.state.onScreen.includes('foto')){
-      foto = <Foto setOnScreen = {this.setOnScreen} imageId = {this.state.imageId} mapId = {this.state.mapId} removeFromScreen = {this.removeFromScreen}/>
+      foto = <Foto setOnScreen = {this.setOnScreen} imageId = {this.state.imageId} mapId = {this.state.mapId} removeFromScreen = {this.removeFromScreen} token = {this.state.token}/>
     }
 
   return (
