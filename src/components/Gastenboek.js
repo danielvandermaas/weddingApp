@@ -7,6 +7,7 @@ class Gastenboek extends Component {
 
   componentDidMount() {
     this.getFeed()
+    setInterval(this.getFeed, 60000);
 
   }
   componentWillUnmount() {
@@ -43,7 +44,7 @@ class Gastenboek extends Component {
             <li>
                   <p> {message.form.answers[0].answer}</p>
                   <p>{message.form.answers[1].answer}</p>
-                  <a onClick = {this.showPhoto.bind(this, message.image)}>
+                  <a onClick = {this.showPhoto.bind(this, message.id)}>
                   <img src = {message.thumbnail}/>
                   </a>
                   </li>

@@ -28,10 +28,6 @@ setPassword = (e)=>{
   this.setState({password:e.target.value})
 }
 
-setImageId = (imageId)=>{
-  this.setState({imageId:imageId})
-}
-
 setToken = async (e) =>{
   e.preventDefault();
   let res = await fetch('https://api.ellipsis-earth.com/v2/account/login',{method:'POST',  headers: {'Content-Type': 'application/json'}, body:JSON.stringify({'username':'bruiloft', 'password':this.state.password})})
@@ -39,15 +35,22 @@ setToken = async (e) =>{
       alert("Verkeerd wachtwoord, in de verstuurde mail staat het juiste wachtwoord. Letop dat je geen spaties in je wachtwoord hebt. Houd ook rekening met hoofdletters.")
     }
     else{
+      if(this.state.name.length <4){
+        alert("Vul een naam in van op zijn minst 4 letters")
+      }else{
       res = await res.json()
       this.setState({token: 'Bearer ' + res.token, onScreen:['programma', 'chat']})
+    }
   }
+}
+
+setImageId = (imageId)=>{
+  this.setState({imageId:imageId})
 }
 
 setOnScreen = (e) =>{
 this.setState({onScreen: e})
 }
-
 
 addOnScreen = (e) =>{
  let onScreen = [...this.state.onScreen]
@@ -55,8 +58,18 @@ addOnScreen = (e) =>{
  this.setState({onScreen: onScreen})
 }
 
-  render(){
+removeFromScreen = (e)=>{
+let onScreen = [...this.state.onScreen]
+onScreen = onScreen.map((el)=>{
+  if(el != 'foto'){
+    return(el)
+  }
+})
+this.setState({onScreen: onScreen})
+}
 
+
+  render(){
     let programma;
     if(this.state.onScreen.includes('programma')){
       programma = <Programma name={this.state.name} setOnScreen = {this.setOnScreen}/>
@@ -87,7 +100,7 @@ addOnScreen = (e) =>{
     }
     let foto;
     if(this.state.onScreen.includes('foto')){
-      foto = <Foto setOnScreen = {this.setOnScreen} imageId = {this.state.imageId}/>
+      foto = <Foto setOnScreen = {this.setOnScreen} imageId = {this.state.imageId} mapId = {this.state.mapId} removeFromScreen = {this.removeFromScreen}/>
     }
 
   return (

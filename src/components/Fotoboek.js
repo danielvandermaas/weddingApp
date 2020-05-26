@@ -5,9 +5,7 @@ class Fotoboek extends Component {
 state = {'messages':['x']}
 
 componentDidMount(props){
-  this.getFeed().then( (messages) => {
-    this.setState({messages:messages})
-  })
+  this.getFeed()
 }
 
 getFeed = async () =>{
@@ -16,7 +14,7 @@ getFeed = async () =>{
     let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
     let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
     messages = await messages.json()
-    return(messages)
+    this.setState({messages:messages})
   }
 
   showPhoto = async (imageId) => {
@@ -35,7 +33,7 @@ render(){
         return(
           <div>
           <li>
-            <a onClick = {this.showPhoto.bind(this, message.image)}>
+            <a onClick = {this.showPhoto.bind(this, message.id)}>
                 <img src = {message.thumbnail}/>
               </a>
                 <p>{message.message}</p>
