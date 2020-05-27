@@ -21,7 +21,7 @@ class Tuin extends Component {
 
     this.leafletMap = React.createRef();
 
-    this.state = {'ceremonie':[], 'ontvangst':[], 'receptie':[], 'position':{'coords': [51.98126,5.82501], 'zoom':18}}
+    this.state = {'ceremonie':[], 'ontvangst':[], 'receptie':[], 'photoMarkers':[], 'position':{'coords': [51.98126,5.82501], 'zoom':18}}
   }
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class Tuin extends Component {
   this.getMarkers('ceremonie')
   this.getMarkers('ontvangst')
   this.getMarkers('receptie')
-
+  this.getPhotoMarkers()
   }
 
 componentWillUnmount(){
@@ -43,7 +43,6 @@ componentWillUnmount(){
   }
 
   openWindow = (url) => {
-    console.log(url)
     var win = window.open('https://' + url, '_blank');
     win.focus();
   }
@@ -70,7 +69,6 @@ getMarkers= async (layer) =>{
     this.setState({ceremonie:geoJsonElements})
   });
 
-
   if(layer == 'ceremonie'){
     this.setState({ceremonie:geoJsonElements})
   }
@@ -80,6 +78,36 @@ getMarkers= async (layer) =>{
   if(layer == 'receptie'){
     this.setState({receptie:geoJsonElements})
   }
+
+}
+
+getPhotoMarkers = async () =>{
+  let body = {'mapId':this.props.mapId, 'layer':'foto', 'type':'polygon'}
+  let ids = await fetch('https://api.ellipsis-earth.com/v2/geometry/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify(body)});
+  ids = await ids.json()
+  ids = ids.ids
+
+  body = {'mapId':this.props.mapId, 'elementIds':ids, 'type':'polygon'}
+  let geojson = await fetch('https://api.ellipsis-earth.com/v2/geometry/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify(body)});
+  geojson = await geojson.json()
+
+  let geoJsonElements = geojson.features.map( async (feature) => {
+    //with feature id collect messageId
+  body = {'mapId':this.props.mapId, 'type':'polygon', 'filters':{'polygonIds':[feature.properties.id]}}
+  let messages = await fetch('https://api.ellipsis-earth.com/v2/geoMessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify(body)});
+  messages = await messages.json()
+    let position = feature.geometry.coordinates
+    position.reverse()
+    return (
+      <Marker map={this.refs.map} position={position} onClick= {this.showPhoto.bind(this, messages.messages[0].id)} >
+         <Popup>
+           <span>foto</span>
+         </Popup>
+       </Marker>
+    );
+  });
+  let result = await Promise.all(geoJsonElements)
+  this.setState({foto:result})
 
 }
 
@@ -114,6 +142,7 @@ checkState = () => {
           {this.state.ceremonie}
           {this.state.ontvangst}
           {this.state.receptie}
+          {this.state.foto}
         </Pane>
         </Map>
       </div>
