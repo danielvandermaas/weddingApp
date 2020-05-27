@@ -12,19 +12,6 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css';
 
 
-//markerfix
-const markerSize = {x: 17, y: 24};
-
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: '/images/marker-2x.svg',
-  iconUrl: '/images/marker.svg',
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
-  className: 'layerDivIcon',
-  iconSize: [markerSize.x * 2, markerSize.y * 2],
-  iconAnchor: [markerSize.x, markerSize.y * 2],
-});
-
 
 class Tuin extends Component {
 
@@ -35,7 +22,7 @@ class Tuin extends Component {
 
     this.leafletMap = React.createRef();
 
-    this.state = {'ceremonie':[], 'ontvangst':[], 'receptie':[], 'photoMarkers':[], 'position':{'coords': [51.98126,5.82501], 'zoom':18}}
+    this.state = {'ceremonie':[], 'ontvangst':[], 'receptie':[], 'photoMarkers':[], 'position':{'coords': [51.98126,5.82501], 'zoom':18}, 'timestamp':3}
   }
 
   componentDidMount() {
@@ -130,12 +117,16 @@ getPhotoMarkers = async () =>{
     leafletElement.flyTo(pos.coords, pos.zoom, {'duration':6});
   }
 
+updateTimestamp = (e)=>{
+  this.setState({timestamp:e.target.value})
+}
 
 
   render(){
     let fullStyle = { height: '1000px', width: '1000px' };
     return(
       <div style = {fullStyle}>
+      <input type="range" min="0" max="3"  onChange = {this.updateTimestamp} class="slider" id="myRange" style = {{width: '100%'}}/>
       <Map center={this.props.position.coords} zoom={this.props.position.zoom} style={fullStyle} ref={this.leafletMap} >
       <Pane style = {{'zIndex':100}}>
         <TileLayer
@@ -144,7 +135,7 @@ getPhotoMarkers = async () =>{
         </Pane>
         <Pane style = {{'zIndex':150}}>
           <TileLayer maxNativeZoom={19} maxZoom={21}
-          url={'https://api.ellipsis-earth.com/v2/tileService/dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1/3/rgb/{z}/{x}/{y}?token=' + this.props.token.substring(7,this.props.token.length)}
+          url={'https://api.ellipsis-earth.com/v2/tileService/dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1/' + this.state.timestamp + '/rgb/{z}/{x}/{y}?token=' + this.props.token.substring(7,this.props.token.length)}
           />
           </Pane>
         <Pane style={{ zIndex: 200 }}>
