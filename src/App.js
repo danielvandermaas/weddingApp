@@ -17,7 +17,12 @@ state = {
   'password':'rooseneefke2020',
   'onScreen':['login'],
   'mapId': 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1',
-  'imageId': 'een id'
+  'imageId': 'een id',
+  'position': {'coords':[52.05249,5.53711], 'zoom':6}
+}
+
+setPosition = (e)=>{
+this.setState({position:e})
 }
 
 setName = (e)=>{
@@ -96,7 +101,7 @@ this.setState({onScreen: onScreen})
     }
     let tuin;
     if(this.state.onScreen.includes('tuin')){
-      tuin = <Tuin mapId = {this.state.mapId} token = {this.state.token}/>
+      tuin = <Tuin mapId = {this.state.mapId} token = {this.state.token} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} position = {this.state.position} setPosition = {this.setPosition}/>
     }
     let foto;
     if(this.state.onScreen.includes('foto')){

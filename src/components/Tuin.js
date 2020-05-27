@@ -21,13 +21,31 @@ class Tuin extends Component {
 
     this.leafletMap = React.createRef();
 
-    this.state = {'ceremonie':[]}
-
+    this.state = {'ceremonie':[], 'ontvangst':[], 'receptie':[], 'position':{'coords': [51.98126,5.82501], 'zoom':18}}
   }
 
   componentDidMount() {
-  this.flyToPos([51.98126,5.82501])
+  this.flyToPos(this.state.position)
   this.getMarkers('ceremonie')
+  this.getMarkers('ontvangst')
+  this.getMarkers('receptie')
+
+  }
+
+componentWillUnmount(){
+  this.props.setPosition(this.state.position)
+
+}
+
+  showPhoto = async (imageId) => {
+  this.props.addOnScreen('foto')
+  this.props.setImageId(imageId)
+  }
+
+  openWindow = (url) => {
+    console.log(url)
+    var win = window.open('https://' + url, '_blank');
+    win.focus();
   }
 
 getMarkers= async (layer) =>{
@@ -40,39 +58,48 @@ getMarkers= async (layer) =>{
   geojson = await geojson.json()
 
   let geoJsonElements = geojson.features.map((feature) => {
+    let position = feature.geometry.coordinates
+    position.reverse()
     return (
-      <GeoJSON
-        key={feature.properties.id}
-        data={feature}
-        onEachFeature = {this.checkState}
-      />
+      <Marker map={this.refs.map} position={position} onClick= {this.openWindow.bind(this, feature.properties.link)} >
+         <Popup>
+           <span>{layer}</span>
+         </Popup>
+       </Marker>
     );
+    this.setState({ceremonie:geoJsonElements})
   });
 
 
   if(layer == 'ceremonie'){
     this.setState({ceremonie:geoJsonElements})
   }
+  if(layer == 'ontvangst'){
+    this.setState({ontvangst:geoJsonElements})
+  }
+  if(layer == 'receptie'){
+    this.setState({receptie:geoJsonElements})
+  }
 
 }
 
-  flyToPos = (pos, zoom = 18) => {
+  flyToPos = async (pos) => {
     let leafletElement = this.leafletMap.current.leafletElement
-    leafletElement.flyTo(pos, zoom, {'duration':6});
+    leafletElement.flyTo(pos.coords, pos.zoom, {'duration':6});
   }
+
+
 
 checkState = () => {
   console.log('hoi')
-//  console.log(this.state)
 }
 
   render(){
     let fullStyle = { height: '1000px', width: '1000px' };
-
     return(
       <div style = {fullStyle}>
       <input type='button' value = 'check state' onClick={this.checkState}/>
-      <Map center={[52.05249,5.53711]} zoom={6} style={fullStyle} ref={this.leafletMap} maxNativeZoom={21} maxZoom={21}>
+      <Map center={this.props.position.coords} zoom={this.props.position.zoom} style={fullStyle} ref={this.leafletMap} maxNativeZoom={21} maxZoom={21}>
       <Pane style = {{'zIndex':100}}>
         <TileLayer
           url='https://www.google.com/maps/vt?lyrs=y@189&x={x}&y={y}&z={z}'
@@ -80,19 +107,14 @@ checkState = () => {
         </Pane>
         <Pane style = {{'zIndex':150}}>
           <TileLayer
-          url='https://www.google.com/maps/vt?lyrs=y@189&x={x}&y={y}&z={z}'
+          url={'https://api.ellipsis-earth.com/v2/tileService/dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1/3/rgb/{z}/{x}/{y}?token=' + this.props.token.substring(7,this.props.token.length)}
           />
           </Pane>
         <Pane style={{ zIndex: 200 }}>
           {this.state.ceremonie}
+          {this.state.ontvangst}
+          {this.state.receptie}
         </Pane>
-        <Pane style={{zIndex:250}}>
-        <Marker map={this.refs.map} position={[52.05249,5.53711]} >
-           <Popup>
-             <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
-           </Popup>
-         </Marker>
-         </Pane>
         </Map>
       </div>
     )
