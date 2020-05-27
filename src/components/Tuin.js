@@ -12,6 +12,20 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css';
 
 
+//markerfix
+const markerSize = {x: 17, y: 24};
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: '/images/marker-2x.svg',
+  iconUrl: '/images/marker.svg',
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+  className: 'layerDivIcon',
+  iconSize: [markerSize.x * 2, markerSize.y * 2],
+  iconAnchor: [markerSize.x, markerSize.y * 2],
+});
+
+
 class Tuin extends Component {
 
   leafletMap = null
@@ -118,23 +132,18 @@ getPhotoMarkers = async () =>{
 
 
 
-checkState = () => {
-  console.log('hoi')
-}
-
   render(){
     let fullStyle = { height: '1000px', width: '1000px' };
     return(
       <div style = {fullStyle}>
-      <input type='button' value = 'check state' onClick={this.checkState}/>
-      <Map center={this.props.position.coords} zoom={this.props.position.zoom} style={fullStyle} ref={this.leafletMap} maxNativeZoom={21} maxZoom={21}>
+      <Map center={this.props.position.coords} zoom={this.props.position.zoom} style={fullStyle} ref={this.leafletMap} >
       <Pane style = {{'zIndex':100}}>
         <TileLayer
-          url='https://www.google.com/maps/vt?lyrs=y@189&x={x}&y={y}&z={z}'
+          url='https://www.google.com/maps/vt?lyrs=y@189&x={x}&y={y}&z={z}' maxNativeZoom={21} maxZoom={21}
         />
         </Pane>
         <Pane style = {{'zIndex':150}}>
-          <TileLayer
+          <TileLayer maxNativeZoom={19} maxZoom={21}
           url={'https://api.ellipsis-earth.com/v2/tileService/dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1/3/rgb/{z}/{x}/{y}?token=' + this.props.token.substring(7,this.props.token.length)}
           />
           </Pane>
