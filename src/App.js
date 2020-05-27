@@ -92,11 +92,11 @@ this.setState({onScreen: onScreen})
     }
     let gastenboek;
     if(this.state.onScreen.includes('gastenboek')){
-      gastenboek = <Gastenboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId}/>
+      gastenboek = <Gastenboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} name = {this.state.name}/>
     }
     let tuin;
     if(this.state.onScreen.includes('tuin')){
-      tuin = <Tuin/>
+      tuin = <Tuin mapId = {this.state.mapId} token = {this.state.token}/>
     }
     let foto;
     if(this.state.onScreen.includes('foto')){

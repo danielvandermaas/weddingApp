@@ -25,7 +25,6 @@ this.getPhoto()
 
 render(){  return (
   <div>
-  <h1> Foto </h1>
   <img src = {this.state.image}/>
   <input type="button" value= "Sluit" onClick={this.props.removeFromScreen} />
   </div>
