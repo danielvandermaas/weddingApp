@@ -67,7 +67,6 @@ getMarkers= async (layer) =>{
          </Popup>
        </Marker>
     );
-    this.setState({ceremonie:geoJsonElements})
   });
 
   if(layer == 'ceremonie'){
