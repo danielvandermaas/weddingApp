@@ -1,0 +1,36 @@
+.gastenboek-chat-container {
+  height: calc(100% - 200px);
+  overflow-y: auto;
+}
+
+.gastenboek-chat-container ul {
+  list-style: none;
+}
+
+.gastenboek-submit-container {
+  height: 200px;
+}
+
+.gastenboek-message {
+  width: 40%;
+  background: #ffdfe5;
+  padding: 12px;
+  border-radius: 20px;
+  margin: 18px 0px;
+  margin-left: 18px;
+}
+
+.gastenboek-message-own {
+  margin-left: auto;
+  margin-right: 18px;
+}
+
+.gastenboek-message-title {
+  text-align: left;
+  font-weight: bold;
+}
+
+.gastenboek-message-text {
+  text-align: left;
+  margin-top: 8px;
+}

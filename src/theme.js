@@ -1,0 +1,92 @@
+var theme =
+{
+	palette: {
+		common: { white: '#fff' },
+		primary: { main: '#ffacbb', contrastText: '#fff' },
+    secondary: { main: '#ffffff', contrastText: '#ffd4db' },
+    info: { main: '#f5f5f5' }
+	},
+	typography: {
+		htmlFontSize: 14,
+		fontFamily: [
+			'"Roboto Condensed"',
+			'"Roboto"',
+			'"-apple-system"',
+			'"BlinkMacSystemFont"',
+			'"Segoe UI"',
+			'"Helvetica Neue"',
+			'"Arial"',
+			'"sans-serif"',
+			'"Apple Color Emoji"',
+			'"Segoe UI Emoji"',
+			'"Segoe UI Symbol"',
+			'"Exo 2"',
+		].join(','),
+		h1: {
+			fontFamily: '"Exo 2", "Roboto Condensed", "Roboto", "Arial", "sans-serif"',
+			fontWeight: 500,
+			lineHeight: 1.25,
+			textTransform: 'uppercase',
+			fontSize: '2.5rem',
+		},
+		h2: {
+			fontFamily: '"Exo 2", "Roboto Condensed", "Roboto", "Arial", "sans-serif"',
+			fontWeight: 400,
+			fontSize: '2.5rem',
+			lineHeight: 1,
+			textTransform: 'uppercase',
+			display: 'block',
+			background: '#026464',
+			padding: '1.5rem',
+			paddingLeft: '20vw',
+			paddingRight: '5vw',
+			width: '100vw',
+			transform: 'translateX(-20vw)',
+			color: 'white',
+			marginBottom: '2rem',
+		},
+		h3: {
+			fontFamily: '"Exo 2", "Roboto Condensed", "Roboto", "Arial", "sans-serif"',
+			fontWeight: 700,
+			fontSize: '2rem',
+			lineHeight: 1.25,
+			textTransform: 'uppercase',
+		},
+		h4: {
+			fontFamily: '"Roboto Condensed", "Roboto", "Arial", "sans-serif"',
+			fontWeight: 400,
+			fontSize: '1.5rem',
+			lineHeight: 1.5,
+		},
+		h5: {
+			fontFamily: '"Roboto Condensed", "Roboto", "Arial", "sans-serif"',
+			fontWeight: 700,
+			fontSize: '1.5rem',
+			lineHeight: 1,
+		},
+		subtitle1: {
+			fontFamily: '"Roboto Condensed", "Roboto", "Arial", "sans-serif"',
+			fontWeight: 300,
+			fontSize: '1.25rem',
+			lineHeight: 1.5,
+			textAlign: 'left',
+		},
+		subtitle2: {
+			fontFamily: '"Roboto Condensed", "Roboto", "Arial", "sans-serif"',
+			fontWeight: 400,
+			fontSize: '1rem',
+			lineHeight: 1,
+			textTransform: 'uppercase',
+		},
+		body1: {
+			fontFamily: '"Roboto Condensed", "Roboto", "Arial", "sans-serif"',
+			fontWeight: 400,
+			fontSize: '1.1rem',
+			lineHeight: 1.5,
+			hyphens: 'auto',
+			textAlign: 'justify',
+		},
+	},
+}
+
+export default theme;

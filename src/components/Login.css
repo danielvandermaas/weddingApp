@@ -1,0 +1,33 @@
+.login-container {
+  text-align: center;
+  padding-top: 25vh;
+}
+
+.login-container h1 {
+  width: 70vw;
+  max-width: 800px;
+  margin: auto;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 2px 2px lightgray;
+}
+
+.login-container h1:first-of-type {
+  font-size: 64px;
+}
+
+.login-container h1:last-of-type {
+  margin-bottom: 48px;
+}
+
+div.login-textfield {
+  display: block;
+  margin: 18px;
+}
+
+button.login-button {
+  display: block;
+  margin: auto;
+  margin-top: 48px;
+  font-weight: bold;
+}

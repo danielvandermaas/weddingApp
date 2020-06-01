@@ -1,7 +1,19 @@
 import React, {Component} from 'react';
-import SubmitMessage from './SubmitMessage'
+import SubmitMessage from './SubmitMessage';
+import moment from 'moment';
+
+
+import './Gastenboek.css'
 
 class Gastenboek extends Component {
+
+  firstTime = false
+
+  constructor(props) {
+    super(props);
+
+    this.messageEnd = React.createRef();
+  }
 
   state = {'time':2, 'messages':[{'form': {'answers':[{'anwser':''}, {'anwser':''}]} }]}
 
@@ -15,45 +27,71 @@ class Gastenboek extends Component {
   }
 
 
-  getFeed = async () =>{
-      let messageInfo = await fetch('https://api.ellipsis-earth.com/v2/geomessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'limit':30, 'filters':{ 'polygonIds':[14]}})});
-      messageInfo = await messageInfo.json();
-      let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
-      let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
-      messages = await messages.json()
-      this.setState({messages:messages})
-      console.log(messages)
-    }
+  getFeed = async (scroll) =>{
+    let messageInfo = await fetch('https://api.ellipsis-earth.com/v2/geomessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'limit':30, 'filters':{ 'polygonIds':[14]}})});
+    messageInfo = await messageInfo.json();
+    let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
+    let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
+    messages = await messages.json();
+    messages = messages.reverse();
+    this.setState({ messages:messages }, () => {
+      if (!this.firstTime) {
+        setTimeout(() => this.messagesEnd.scrollIntoView(), 100);
+        this.firstTime = true;
+      }
+      else if (scroll) {
+        setTimeout(() => this.messagesEnd.scrollIntoView({ behavior: "smooth" }), 100);
+      }
+    })
+  }
 
   showPhoto = async (imageId) => {
     this.props.addOnScreen('foto')
     this.props.setImageId(imageId)
-    }
+  }
 
+  render() {
+    let messages = this.state.messages.map((message) => {
+      let user = message.form.answers[0].answer;
+      let text = message.form.answers[1].answer;
 
-  render(){
+      let messageClass = 'gastenboek-message';
+
+      if (user === this.props.name) {
+        messageClass += ' gastenboek-message-own';
+      }
+
+      return (
+        <div className={messageClass}>
+          <div className='gastenboek-message-title'>{`${user} ${moment(message.date).format('MM-DD HH:mm')}`}</div>
+          <div className='gastenboek-message-text'>{text}</div>
+          <a onClick = {this.showPhoto.bind(this, message.id)}>
+            <img src = {message.thumbnail}/>
+          </a>
+        </div>
+      )
+    })
+
     return (
-      <div>
-      <h1> Gastenboek </h1>
-      <input type="button" value= "Ga terug naar de tuin" onClick = {this.props.setOnScreen.bind(this,['menu','tuin','chat'])} />
-      <SubmitMessage mapId = {this.props.mapId} token = {this.props.token} getFeed = {this.getFeed} name = {this.props.name} type = 'gastenboek'/>
-      <ul>{
-      this.state.messages.map( (message) => {
-          return(
-            <div>
-            <li>
-                  <p> {message.form.answers[0].answer}</p>
-                  <p>{message.form.answers[1].answer}</p>
-                  <a onClick = {this.showPhoto.bind(this, message.id)}>
-                  <img src = {message.thumbnail}/>
-                  </a>
-                  </li>
-              </div>
-          )
-        })
-      }</ul>
+      <div className='wedding-content'>
+        <div className='gastenboek-chat-container'>
+          {messages}
+          <div ref={(el) => { this.messagesEnd = el; }}></div>
+        </div>
+
+        <div className='gastenboek-submit-container'>
+          <input type="button" value= "Ga terug naar de tuin" onClick = {this.props.setOnScreen.bind(this,['menu','tuin','chat'])} />
+          <SubmitMessage 
+            mapId = {this.props.mapId} 
+            token = {this.props.token} 
+            getFeed = {() => this.getFeed(true)} 
+            name = {this.props.name} 
+            type = 'gastenboek'
+          />
+        </div>       
       </div>
     );
   }
-  }
+}
+
 export default Gastenboek;

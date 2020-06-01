@@ -1,0 +1,9 @@
+.programme-table {
+  margin: auto;
+  border-spacing: 40px 0px;
+  margin-bottom: 40px;
+}
+
+.programme-table tr td:first-of-type{
+  text-align: left;
+}

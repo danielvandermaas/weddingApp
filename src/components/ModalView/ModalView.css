@@ -1,0 +1,26 @@
+.modal-view {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 18px;
+  padding-top: 75px;
+  box-sizing: border-box;
+  z-index: 1000;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(0,0,0,.5);
+}
+
+.modal-view-close-button-container {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.modal-view-content {
+  width: 100%;
+  height: 100%;
+}

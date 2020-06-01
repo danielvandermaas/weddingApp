@@ -1,23 +1,62 @@
 import React, {Component} from 'react';
 
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+
+import './Menu.css';
+
 class Menu extends Component {
 
-openWindow = (url) => {
-  console.log(url)
-  var win = window.open(url, '_blank');
-  win.focus();
-}
+  openWindow = (url) => {
+    console.log(url)
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
 
-render(){  return (
-  <div>
-  <h1> Menu </h1>
-  <input type="button" value= "Programma" onClick = {this.props.setOnScreen.bind(this, ['programma', 'chat'])}/>
-  <input type="button" value= "Gastenboek" onClick = {this.props.setOnScreen.bind(this, ['gastenboek', 'chat'])}/>
-  <input type="button" value= "Fotoboek" onClick = {this.props.setOnScreen.bind(this, ['fotoboek', 'chat'])} />
-  <input type="button" value= "Bekijk de tuin" onClick =  {this.openWindow.bind(this, 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')} />
-  </div>
+  onTabClick = (e, newValue) => {
+    if (newValue === 0) {
+      this.props.setOnScreen(['programma']);
+    }
+    else if (newValue === 1) {
+      this.props.setOnScreen(['gastenboek']);
+    }
+    else if (newValue === 2) {
+      this.props.setOnScreen(['fotoboek']);
+    }
+  }
 
-  );
-}
+  render() {  
+    let onScreen = this.props.onScreen;
+    
+    let value = 0;
+
+    if (onScreen) {
+      if (onScreen.includes('gastenboek')) {
+        value = 1;
+      }
+      else if (onScreen.includes('fotoboek')) {
+        value = 2;
+      }
+    }
+
+    
+    return (
+      <div className='menu-container'>
+        <Typography variant='h1' component='h1' color='primary'>
+          Roos &hearts; Eefke        
+        </Typography>
+        <div className='menu-tabs'>
+          <Tabs variant='fullWidth' textColor='primary' value={value} onChange={this.onTabClick}>
+            <Tab label="Programma"/>
+            <Tab label="Gastenboek"/>
+            <Tab label="Fotoboek"/>
+            <Tab label="Bekijk de tuin"/>
+          </Tabs>
+        </div>
+
+      </div>
+    );
+  }
 }
 export default Menu;

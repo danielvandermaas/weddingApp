@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import ModalView from './ModalView/ModalView';
+
 class Foto extends Component {
 
 state = {'image': ''}
@@ -19,17 +21,24 @@ getPhoto = async () =>{
 }
 
 componentDidMount() {
-this.getPhoto()
+  this.getPhoto()
+}
+
+onModalChange = () => {
+  this.props.removeFromScreen();
 }
 
 
-render(){  return (
-  <div>
-  <img src = {this.state.image}/>
-  <input type="button" value= "Sluit" onClick={this.props.removeFromScreen} />
-  </div>
+render() {  
+  if (!this.state.image) {
+    return null;
+  }
 
-  );
-}
+  return (
+    <ModalView onModalChange={this.onModalChange}>
+      <img src={this.state.image}/>
+    </ModalView>
+    );
+  }
 }
 export default Foto;
