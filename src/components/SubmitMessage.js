@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+import './SubmitMessage.css';
 
 class SubmitMessage extends Component {
 
@@ -43,11 +47,50 @@ reader.readAsDataURL(file)
 }
 
 render(){  return (
-  <div>
-  <h3> Stuur bericht </h3>
-  <input type = "text" name = "wachtwoord" placeholder = "Type een berichtje." value = {this.state.bericht} onChange = {this.setName}/>
-  <input type="file" id="img" name="img" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG" onChange = {this.upload}/>
-   <input type="button" value= "stuur!" onClick = {this.sent} />
+  <div className='gastenboek-submitmessage'>
+    <TextField
+      className='gastenboek-submitmessage-textfield'
+      placeholder='Laat bericht achter'
+      multiline
+      rowsMax={4}
+      value={this.state.bericht}
+      onChange = {this.setName}
+    />
+
+    <div className='gastenboek-submitmessage-buttons'>
+      <div>
+        <input
+          accept='image/*'
+          style={{ display: 'none' }}
+          id='photo-upload-input'
+          type='file'
+          onChange={this.upload}
+          capture='camera'
+        />
+        <label htmlFor='photo-upload-input'>
+          <Button 
+            className='gastenboek-submitmessage-photo-button'
+            variant='contained' 
+            color='primary' 
+            component='span'
+          >
+            Voeg foto toe
+          </Button>
+        </label>
+      </div>
+      <div>
+      <Button 
+        className='gastenboek-submitmessage-submit-button'
+        variant='contained' 
+        color='primary'
+        onClick={this.sent}
+      >
+        Verstuur
+      </Button>
+      </div>
+    </div>
+
+
   </div>
 
   );

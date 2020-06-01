@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
 
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+
+import './Fotoboek.css';
+
 class Fotoboek extends Component {
 
 state = {'messages':['x']}
@@ -25,23 +31,33 @@ getFeed = async () =>{
 
 render(){
   return (
-    <div>
-    <h1> Fotoboek </h1>
-    <input type="button" value= "Ga terug naar de tuin" onClick = {this.props.setOnScreen.bind(this,['menu','tuin','chat'])} />
-    <ul>{
-    this.state.messages.map((message) => {
-        return(
-          <div>
-          <li>
-            <a onClick = {this.showPhoto.bind(this, message.id)}>
-                <img src = {message.thumbnail}/>
-              </a>
-                <p>{message.message}</p>
-                </li>
-            </div>
-        )
-      })
-    }</ul>
+    <div className='wedding-content'>
+      <div className='fotoboek-grid'>
+        <Grid container spacing={3}>
+          {
+            this.state.messages.map((message) => {
+              return(
+                <Grid item xs={3}>
+                  <Paper>
+                    <a onClick = {this.showPhoto.bind(this, message.id)}>
+                      <img style={{ width: '100%' }} src = {message.thumbnail}/>
+                    </a>
+                    <p>{message.message}</p>
+                  </Paper>
+                </Grid>
+              )
+            })
+          }      
+        </Grid>   
+      </div>
+      <Button
+        style={{ marginTop: '24px'  }} 
+        variant='contained'
+        color='primary'
+        onClick={() => this.props.setOnScreen(['tuin'])}
+      >
+        Terug naar de tuin
+      </Button>
     </div>
   );
 }

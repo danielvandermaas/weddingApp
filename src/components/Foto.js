@@ -36,7 +36,7 @@ render() {
 
   return (
     <ModalView onModalChange={this.onModalChange}>
-      <img src={this.state.image}/>
+      <img style={{ maxWidth: '100%', maxHeight: '100%' }} src={this.state.image}/>
     </ModalView>
     );
   }

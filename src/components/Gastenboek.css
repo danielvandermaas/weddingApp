@@ -1,5 +1,5 @@
 .gastenboek-chat-container {
-  height: calc(100% - 200px);
+  height: calc(100% - 240px);
   overflow-y: auto;
 }
 
@@ -8,7 +8,8 @@
 }
 
 .gastenboek-submit-container {
-  height: 200px;
+  height: 90px;
+  margin-top: 24px;
 }
 
 .gastenboek-message {
@@ -16,21 +17,15 @@
   background: #ffdfe5;
   padding: 12px;
   border-radius: 20px;
-  margin: 18px 0px;
-  margin-left: 18px;
-}
-
-.gastenboek-message-own {
-  margin-left: auto;
-  margin-right: 18px;
+  margin: 18px auto;
+  text-align: center;
 }
 
 .gastenboek-message-title {
-  text-align: left;
   font-weight: bold;
 }
 
-.gastenboek-message-text {
-  text-align: left;
+.gastenboek-message-text, .gastenboek-message-foto {
   margin-top: 8px;
+  word-break: break-word;
 }

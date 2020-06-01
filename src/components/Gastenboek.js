@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import SubmitMessage from './SubmitMessage';
 import moment from 'moment';
 
+import Button from '@material-ui/core/Button';
+
 
 import './Gastenboek.css'
 
@@ -33,14 +35,14 @@ class Gastenboek extends Component {
     let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
     let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
     messages = await messages.json();
-    messages = messages.reverse();
+    // messages = messages.reverse();
     this.setState({ messages:messages }, () => {
       if (!this.firstTime) {
-        setTimeout(() => this.messagesEnd.scrollIntoView(), 100);
+        // setTimeout(() => this.messagesEnd.scrollIntoView(), 100);
         this.firstTime = true;
       }
       else if (scroll) {
-        setTimeout(() => this.messagesEnd.scrollIntoView({ behavior: "smooth" }), 100);
+        // setTimeout(() => this.messagesEnd.scrollIntoView({ behavior: "smooth" }), 100);
       }
     })
   }
@@ -65,9 +67,14 @@ class Gastenboek extends Component {
         <div className={messageClass}>
           <div className='gastenboek-message-title'>{`${user} ${moment(message.date).format('MM-DD HH:mm')}`}</div>
           <div className='gastenboek-message-text'>{text}</div>
-          <a onClick = {this.showPhoto.bind(this, message.id)}>
-            <img src = {message.thumbnail}/>
-          </a>
+          {
+            message.image ? 
+              <div className='gastenboek-message-foto' >
+                <a onClick = {this.showPhoto.bind(this, message.id)}>
+                  <img src = {message.thumbnail}/>
+                </a>
+              </div> : null
+          }             
         </div>
       )
     })
@@ -80,7 +87,6 @@ class Gastenboek extends Component {
         </div>
 
         <div className='gastenboek-submit-container'>
-          <input type="button" value= "Ga terug naar de tuin" onClick = {this.props.setOnScreen.bind(this,['menu','tuin','chat'])} />
           <SubmitMessage 
             mapId = {this.props.mapId} 
             token = {this.props.token} 
@@ -88,6 +94,15 @@ class Gastenboek extends Component {
             name = {this.props.name} 
             type = 'gastenboek'
           />
+          
+          <Button
+            style={{ marginTop: '24px'  }} 
+            variant='contained'
+            color='primary'
+            onClick={() => this.props.setOnScreen(['tuin'])}
+          >
+            Terug naar de tuin
+          </Button>
         </div>       
       </div>
     );

@@ -1,0 +1,34 @@
+.gastenboek-submitmessage {
+  background-color: #eeeeee;
+  text-align: left;
+  height: 100%;
+}
+
+div.gastenboek-submitmessage-textfield {
+  display: inline-block;
+  height: 100%;
+  width: calc(100% - 180px);
+}
+
+.gastenboek-submitmessage-textfield > div {
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+}
+
+.gastenboek-submitmessage-buttons {
+  display: inline-block;
+  width: 180px;
+}
+
+span.gastenboek-submitmessage-photo-button {
+  width: 180px;
+  height: 25px;
+  font-size: 14px;
+}
+
+button.gastenboek-submitmessage-submit-button {
+  margin-top: 8px;
+  width: 180px;
+  height: 55px;
+}
