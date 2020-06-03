@@ -24,6 +24,9 @@ class Menu extends Component {
     else if (newValue === 2) {
       this.props.setOnScreen(['fotoboek']);
     }
+    else if (newValue === 3) {
+      this.props.setOnScreen(['video']);
+    }
   }
 
   render() {  

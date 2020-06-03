@@ -13,11 +13,13 @@ body {
 }
 
 .wedding-content {
+  position: relative;
   max-width: 800px;
   margin: auto;
   margin-top: 36px;
   height: calc(100vh - 200px);
   overflow-y: auto;
+  z-index: 1;
 }
 
 .wedding-chat-button {

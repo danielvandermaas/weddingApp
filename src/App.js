@@ -8,6 +8,7 @@ import Gastenboek from './components/Gastenboek'
 import Tuin from './components/Tuin'
 import Foto from './components/Foto';
 import Chat from './components/Chat';
+import Video from './components/Video';
 
 import Button from '@material-ui/core/Button';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -29,18 +30,15 @@ class App extends Component {
       onScreen:['login'],
       mapId: 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1',
       imageId: 'een id',
-      position: {'coords':[52.05249,5.53711], 'zoom':6},
 
-      openChat: true
+      openChat: false,
+
+      firstTime: null
     }
   }
 
-  state = {
-   
-  }
-
   setPosition = (e)=>{
-    this.setState({position:e})
+    this.setState({ position:e })
   }
 
   setName = (e)=>{
@@ -71,8 +69,19 @@ class App extends Component {
     this.setState({imageId:imageId})
   }
 
-  setOnScreen = (e) => {
-    this.setState({ onScreen: e })
+  setOnScreen = (onScreen) => {
+    let firstTime = this.state.firstTime;
+
+    if (onScreen.includes('tuin')) {
+      if (firstTime === null) {
+        firstTime = true;
+      }
+      else if (firstTime) {
+        firstTime = false;
+      }
+    }
+
+    this.setState({ onScreen: onScreen, firstTime });
   }
 
   addOnScreen = (e) =>{
@@ -147,9 +156,18 @@ class App extends Component {
     if(this.state.onScreen.includes('gastenboek')){
       gastenboek = <Gastenboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} name = {this.state.name}/>
     }
+
     let tuin;
     if(this.state.onScreen.includes('tuin')){
-      tuin = <Tuin mapId = {this.state.mapId} token = {this.state.token} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} position = {this.state.position} setPosition = {this.setPosition}/>
+      tuin = (
+        <Tuin 
+          mapId={this.state.mapId} 
+          token={this.state.token} 
+          addOnScreen={this.addOnScreen}
+          setImageId={this.setImageId} 
+          firstTime={this.state.firstTime}
+        />
+      );
     }
     let foto;
     if(this.state.onScreen.includes('foto')){
@@ -167,6 +185,7 @@ class App extends Component {
         {fotoboek}
         {gastenboek}
         {tuin}
+        {this.state.onScreen.includes('video') ? <Video/> : null}
 
         {chat}
         {chatButton}
