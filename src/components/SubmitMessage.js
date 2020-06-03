@@ -46,53 +46,53 @@ reader.readAsDataURL(file)
 
 }
 
-render(){  return (
-  <div className='gastenboek-submitmessage'>
-    <TextField
-      className='gastenboek-submitmessage-textfield'
-      placeholder='Laat bericht achter'
-      multiline
-      rowsMax={4}
-      value={this.state.bericht}
-      onChange = {this.setName}
-    />
+render() {  
+  let type = this.props.type;
 
-    <div className='gastenboek-submitmessage-buttons'>
-      <div>
-        <input
-          accept='image/*'
-          style={{ display: 'none' }}
-          id='photo-upload-input'
-          type='file'
-          onChange={this.upload}
-          capture='camera'
-        />
-        <label htmlFor='photo-upload-input'>
-          <Button 
-            className='gastenboek-submitmessage-photo-button'
-            variant='contained' 
-            color='primary' 
-            component='span'
-          >
-            Voeg foto toe
-          </Button>
-        </label>
-      </div>
-      <div>
-      <Button 
-        className='gastenboek-submitmessage-submit-button'
-        variant='contained' 
-        color='primary'
-        onClick={this.sent}
-      >
-        Verstuur
-      </Button>
+  return (
+    <div className={`${type}-submitmessage`}>
+      <TextField
+        className={`${type}-submitmessage-textfield`}
+        placeholder='Laat bericht achter'
+        multiline
+        rowsMax={4}
+        value={this.state.bericht}
+        onChange = {this.setName}
+      />
+
+      <div className={`${type}-submitmessage-buttons`}>
+        <div>
+          <input
+            accept='image/*'
+            style={{ display: 'none' }}
+            id='photo-upload-input'
+            type='file'
+            onChange={this.upload}
+            capture='camera'
+          />
+          <label htmlFor='photo-upload-input'>
+            <Button 
+              className={`${type}-submitmessage-photo-button`}
+              variant='contained' 
+              color='primary' 
+              component='span'
+            >
+              Voeg foto toe
+            </Button>
+          </label>
+        </div>
+        <div>
+        <Button 
+          className={`${type}-submitmessage-submit-button`}
+          variant='contained' 
+          color='primary'
+          onClick={this.sent}
+        >
+          Verstuur
+        </Button>
+        </div>
       </div>
     </div>
-
-
-  </div>
-
   );
 }
 }

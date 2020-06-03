@@ -4,10 +4,13 @@ import Login from './components/Login'
 import Programma from './components/Programma'
 import Menu from './components/Menu'
 import Fotoboek from './components/Fotoboek'
-import Chat from './components/Chat'
 import Gastenboek from './components/Gastenboek'
 import Tuin from './components/Tuin'
-import Foto from './components/Foto'
+import Foto from './components/Foto';
+import Chat from './components/Chat';
+
+import Button from '@material-ui/core/Button';
+import ChatIcon from '@material-ui/icons/Chat';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import DefaultTheme from './theme';
@@ -16,14 +19,24 @@ const theme = createMuiTheme(DefaultTheme);
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: 'daan',
+      token:'',
+      password:'rooseneefke2020',
+      onScreen:['login'],
+      mapId: 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1',
+      imageId: 'een id',
+      position: {'coords':[52.05249,5.53711], 'zoom':6},
+
+      openChat: true
+    }
+  }
+
   state = {
-    'name': 'daan',
-    'token':'',
-    'password':'rooseneefke2020',
-    'onScreen':['login'],
-    'mapId': 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1',
-    'imageId': 'een id',
-    'position': {'coords':[52.05249,5.53711], 'zoom':6}
+   
   }
 
   setPosition = (e)=>{
@@ -78,11 +91,42 @@ class App extends Component {
     this.setState({onScreen: onScreen})
   }
 
+  onToggleChat = () => {
+    this.setState({ openChat: !this.state.openChat });
+  }
 
-  render(){
-    let menu;
-    if(!this.state.onScreen.includes('login')){
+  render() {
+    let isLogin = this.state.onScreen.includes('login');
+
+    let menu = null;
+    let chatButton = null;
+    let chat = null;
+
+    if (!isLogin){
       menu = <Menu setOnScreen={this.setOnScreen} onScreen={this.state.onScreen}/>
+      chatButton = (
+        <div className='wedding-chat-button'>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={this.onToggleChat}
+          >
+            <ChatIcon/>
+          </Button>
+        </div>
+      );
+
+      if (this.state.openChat) {
+        chat = (
+          <Chat
+            mapId={this.state.mapId} 
+            token = {this.state.token} 
+            name = {this.state.name} 
+            addOnScreen = {this.addOnScreen} 
+            setImageId = {this.setImageId}
+          />
+        );
+      }
     }
 
     let programma;
@@ -98,10 +142,7 @@ class App extends Component {
     if(this.state.onScreen.includes('fotoboek')){
       fotoboek = <Fotoboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId}/>
     }
-    let chat;
-    // if(this.state.onScreen.includes('chat')){
-    //   chat = <Chat mapId={this.state.mapId} token = {this.state.token} name = {this.state.name} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId}/>
-    // }
+    
     let gastenboek;
     if(this.state.onScreen.includes('gastenboek')){
       gastenboek = <Gastenboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} name = {this.state.name}/>
@@ -119,13 +160,16 @@ class App extends Component {
     <div className="App">
       <ThemeProvider theme={theme}>
         {menu}
+
         {login}
         {programma}
         {foto}
         {fotoboek}
         {gastenboek}
         {tuin}
+
         {chat}
+        {chatButton}
       </ThemeProvider>
     </div>
   );
