@@ -27,11 +27,14 @@ class Menu extends Component {
     else if (newValue === 3) {
       this.props.setOnScreen(['video']);
     }
+    else if (newValue === 4) {
+      this.props.setOnScreen(['ceremonie']);
+    }
   }
 
-  render() {  
+  render() {
     let onScreen = this.props.onScreen;
-    
+
     let value = 0;
 
     if (onScreen) {
@@ -43,11 +46,11 @@ class Menu extends Component {
       }
     }
 
-    
+
     return (
       <div className='menu-container'>
         <Typography variant='h1' component='h1' color='primary'>
-          Roos &hearts; Eefke        
+          Roos &hearts; Eefke
         </Typography>
         <div className='menu-tabs'>
           <Tabs variant='fullWidth' textColor='primary' value={value} onChange={this.onTabClick}>
@@ -55,6 +58,7 @@ class Menu extends Component {
             <Tab label="Gastenboek"/>
             <Tab label="Fotoboek"/>
             <Tab label="Bekijk de tuin"/>
+            <Tab label="Ceremonie"/>
           </Tabs>
         </div>
 

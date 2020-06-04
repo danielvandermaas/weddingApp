@@ -9,6 +9,7 @@ import Tuin from './components/Tuin'
 import Foto from './components/Foto';
 import Chat from './components/Chat';
 import Video from './components/Video';
+import Ceremonie from './components/Ceremonie';
 
 import Button from '@material-ui/core/Button';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -31,7 +32,7 @@ class App extends Component {
       mapId: 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1',
       imageId: 'een id',
 
-      openChat: false,
+      openChat: true,
 
       firstTime: null
     }
@@ -128,10 +129,10 @@ class App extends Component {
       if (this.state.openChat) {
         chat = (
           <Chat
-            mapId={this.state.mapId} 
-            token = {this.state.token} 
-            name = {this.state.name} 
-            addOnScreen = {this.addOnScreen} 
+            mapId={this.state.mapId}
+            token = {this.state.token}
+            name = {this.state.name}
+            addOnScreen = {this.addOnScreen}
             setImageId = {this.setImageId}
           />
         );
@@ -151,7 +152,7 @@ class App extends Component {
     if(this.state.onScreen.includes('fotoboek')){
       fotoboek = <Fotoboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId}/>
     }
-    
+
     let gastenboek;
     if(this.state.onScreen.includes('gastenboek')){
       gastenboek = <Gastenboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} name = {this.state.name}/>
@@ -160,11 +161,12 @@ class App extends Component {
     let tuin;
     if(this.state.onScreen.includes('tuin')){
       tuin = (
-        <Tuin 
-          mapId={this.state.mapId} 
-          token={this.state.token} 
+        <Tuin
+          mapId={this.state.mapId}
+          token={this.state.token}
+          setOnScreen = {this.setOnScreen}
           addOnScreen={this.addOnScreen}
-          setImageId={this.setImageId} 
+          setImageId={this.setImageId}
           firstTime={this.state.firstTime}
         />
       );
@@ -185,8 +187,8 @@ class App extends Component {
         {fotoboek}
         {gastenboek}
         {tuin}
-        {this.state.onScreen.includes('video') ? <Video/> : null}
-
+        {this.state.onScreen.includes('video') ? <Video setOnScreen = {this.setOnScreen}/> : null}
+        {this.state.onScreen.includes('ceremonie') ? <Ceremonie setOnScreen = {this.setOnScreen}/> : null}
         {chat}
         {chatButton}
       </ThemeProvider>

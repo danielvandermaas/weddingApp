@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 
-class Video extends Component {
+class Ceremonie extends Component {
   render() {
     return (
       <div className='wedding-content'>
@@ -16,7 +16,7 @@ class Video extends Component {
         <iframe
           width='100%'
           height='500px'
-          src="https://www.youtube.com/embed/eW50Il1RW20?autoplay=1"
+          src="https://www.youtube.com/embed/JvmrvzGfjpI?autoplay=1"
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
@@ -28,4 +28,4 @@ class Video extends Component {
   }
 }
 
-export default Video;
+export default Ceremonie;

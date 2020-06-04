@@ -68,42 +68,44 @@ class Gastenboek extends Component {
           <div className='gastenboek-message-title'>{`${user} ${moment(message.date).format('MM-DD HH:mm')}`}</div>
           <div className='gastenboek-message-text'>{text}</div>
           {
-            message.image ? 
+            message.image ?
               <div className='gastenboek-message-foto' >
                 <a onClick = {this.showPhoto.bind(this, message.id)}>
                   <img src = {message.thumbnail}/>
                 </a>
               </div> : null
-          }             
+          }
         </div>
       )
     })
 
     return (
       <div className='wedding-content'>
+      <Button
+        style={{ marginTop: '24px'  }}
+        variant='contained'
+        color='primary'
+        onClick={() => this.props.setOnScreen(['tuin'])}
+      >
+        Terug naar de tuin
+      </Button>
+
+
         <div className='gastenboek-chat-container'>
           {messages}
           <div ref={(el) => { this.messagesEnd = el; }}></div>
         </div>
 
         <div className='gastenboek-submit-container'>
-          <SubmitMessage 
-            mapId = {this.props.mapId} 
-            token = {this.props.token} 
-            getFeed = {() => this.getFeed(true)} 
-            name = {this.props.name} 
+          <SubmitMessage
+            mapId = {this.props.mapId}
+            token = {this.props.token}
+            getFeed = {() => this.getFeed(true)}
+            name = {this.props.name}
             type = 'gastenboek'
           />
-          
-          <Button
-            style={{ marginTop: '24px'  }} 
-            variant='contained'
-            color='primary'
-            onClick={() => this.props.setOnScreen(['tuin'])}
-          >
-            Terug naar de tuin
-          </Button>
-        </div>       
+
+        </div>
       </div>
     );
   }

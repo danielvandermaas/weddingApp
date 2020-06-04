@@ -32,6 +32,15 @@ getFeed = async () =>{
 render(){
   return (
     <div className='wedding-content'>
+    <Button
+      style={{ marginTop: '24px'  }}
+      variant='contained'
+      color='primary'
+      onClick={() => this.props.setOnScreen(['tuin'])}
+    >
+      Terug naar de tuin
+    </Button>
+
       <div className='fotoboek-grid'>
         <Grid container spacing={3}>
           {
@@ -47,17 +56,9 @@ render(){
                 </Grid>
               )
             })
-          }      
-        </Grid>   
+          }
+        </Grid>
       </div>
-      <Button
-        style={{ marginTop: '24px'  }} 
-        variant='contained'
-        color='primary'
-        onClick={() => this.props.setOnScreen(['tuin'])}
-      >
-        Terug naar de tuin
-      </Button>
     </div>
   );
 }

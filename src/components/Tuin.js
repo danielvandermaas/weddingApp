@@ -5,9 +5,11 @@ import {
   Pane,
   Marker,
   Popup,
+  CircleMarker
 } from 'react-leaflet';
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css';
+import Button from '@material-ui/core/Button';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -17,7 +19,7 @@ L.Icon.Default.mergeOptions({
 });
 
 const WEDDING_POSITION = {
-  coords: [51.98126, 5.82501], 
+  coords: [51.98126, 5.82501],
   zoom: 18
 }
 
@@ -33,15 +35,17 @@ class Tuin extends Component {
     this.ontvangstPopup = React.createRef();
 
     this.state = {
-      ceremonie: [], 
-      ontvangst: [], 
-      receptie: [], 
+      ceremonie: [],
+      ontvangst: [],
+      receptie: [],
+      verzamelen:[],
       photoMarkers: [],
       timestamp: 3
     }
   }
 
   componentDidMount() {
+
     if (this.props.firstTime) {
       this.flyToPos(WEDDING_POSITION);
 
@@ -56,14 +60,14 @@ class Tuin extends Component {
 
       }, 5500)
     }
-
-    this.getMarkers('ceremonie')
-    this.getMarkers('ontvangst')
-    this.getMarkers('receptie')
+    this.getMarkers('ontvangst', 'red')
+    this.getMarkers('verzamelen', 'orange')
+    this.getMarkers('ceremonie', 'yellow')
+    this.getMarkers('receptie', 'blue')
     this.getPhotoMarkers();
 
     let leafletElement = this.leafletMap.current.leafletElement;
-    
+
     leafletElement.attributionControl.setPrefix(false);
   }
 
@@ -72,6 +76,10 @@ class Tuin extends Component {
       clearTimeout(this.openPopupTimeout);
     }
   }
+
+toCeremonie = () =>{
+  this.props.setOnScreen(['ceremonie'])
+}
 
   showPhoto = async (imageId) => {
     this.props.addOnScreen('foto')
@@ -83,7 +91,7 @@ class Tuin extends Component {
     win.focus();
   }
 
-  getMarkers= async (layer) =>{
+  getMarkers= async (layer, color) =>{
     let body = {'mapId':this.props.mapId, 'layer':layer, 'type':'polygon'}
     let ids = await fetch('https://api.ellipsis-earth.com/v2/geometry/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify(body)});
     ids = await ids.json()
@@ -113,27 +121,47 @@ class Tuin extends Component {
 
         this.setState({ ontvangstPopup: {
           position: position,
-          content: `
+          content: `<h1>
             <div>${title}</div>
             <a href=https://${feature.properties.link} target='_blank'>
               https://${feature.properties.link}
             </a>
+            </h1>
           `
         }})
       }
 
-      return (
-        <Marker 
-          map={this.refs.map} 
-          position={position}
+      if (layer === 'ceremonie'){
+        return(<CircleMarker
+          map={this.refs.map}
+          color = {color}
+          center={position}
         >
           <Popup ref={ref}>
+          <h1>
+            <div>Ceremonie</div>
+            <Button onClick = {this.toCeremonie}> Ga naar ceremonie </Button>
+            </h1>
+          </Popup>
+        </CircleMarker>
+)
+      }
+
+      return (
+        <CircleMarker
+          map={this.refs.map}
+          color = {color}
+          center={position}
+        >
+          <Popup ref={ref}>
+          <h1>
             <div>{title}</div>
             <a href={`https://${feature.properties.link}`} target='_blank'>
               {`https://${feature.properties.link}`}
             </a>
+            </h1>
           </Popup>
-        </Marker>
+        </CircleMarker>
       );
     });
 
@@ -145,6 +173,9 @@ class Tuin extends Component {
     }
     if(layer == 'receptie'){
       this.setState({receptie:geoJsonElements})
+    }
+    if(layer == 'verzamelen'){
+      this.setState({verzamelen:geoJsonElements})
     }
   }
 
@@ -167,14 +198,17 @@ class Tuin extends Component {
       position.reverse()
 
       return (
-        <Marker 
-          map={this.refs.map} 
-          position={position}
+        <CircleMarker
+          color = 'green'
+          map={this.refs.map}
+          center={position}
         >
           <Popup>
+          <h1>
             <a href='#' onClick={this.showPhoto.bind(this, messages.messages[0].id)}>Foto van locatie</a>
+            </h1>
           </Popup>
-        </Marker>
+        </CircleMarker>
       );
     });
 
@@ -195,15 +229,21 @@ class Tuin extends Component {
 
   render() {
     let zoom = this.props.firstTime ? 6 : 18;
-    let center = [51.98126, 5.82501];    
+    let center = [51.98126, 5.82501];
 
-    let fullStyle = { height: '100%', width: '100%' };
     return (
       <div className='wedding-content'>
-        <Map 
-          center={center} 
-          zoom={zoom} 
-          style={fullStyle} ref={this.leafletMap} 
+      <div >
+      <p style={{"background":"red"}}> Stap 1: ga naar ontvangst </p>
+    <p style={{"background":"orange"}}> Stap 2: ga naar verzamelen </p>
+    <p style={{"background":"yellow"}}> Stap 3: ga naar de ceremonie </p>
+    <p style={{"background":"blue"}}> Stap 4: ga naar de receptie </p>
+    </div>
+      <div style = {{ height: '100%', width: '100%', 'float':'left' }}>
+        <Map
+          center={center}
+          zoom={zoom}
+          style={{ height: '100%', width: '100%' }} ref={this.leafletMap}
         >
           <Pane style = {{'zIndex':100}}>
           <TileLayer
@@ -216,12 +256,14 @@ class Tuin extends Component {
             />
             </Pane>
           <Pane style={{ zIndex: 200 }}>
+            {this.state.verzamelen}
             {this.state.ceremonie}
             {this.state.ontvangst}
             {this.state.receptie}
             {this.state.foto}
           </Pane>
         </Map>
+        </div>
       </div>
     )
   }

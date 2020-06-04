@@ -12,14 +12,14 @@ class Chat extends Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       firstTime: false,
 
-      time: 2, 
+      time: 2,
       messages: [{
         form: {
-          answers: [{ anwser: '' }, { anwser: '' }] 
+          answers: [{ anwser: '' }, { anwser: '' }]
         } 
       }]
     };
@@ -77,13 +77,13 @@ class Chat extends Component {
           <div className='chat-message-title'>{`${user} ${moment(message.date).format('MM-DD HH:mm')}`}</div>
           <div className='chat-message-text'>{text}</div>
           {
-            message.image ? 
+            message.image ?
               <div className='chat-message-foto' >
                 <a onClick = {this.showPhoto.bind(this, message.id)}>
                   <img src = {message.thumbnail}/>
                 </a>
               </div> : null
-          }             
+          }
         </div>
       )
     });
@@ -96,22 +96,22 @@ class Chat extends Component {
     return (
       <Paper className={containerClass}>
         <Typography variant='h1' component='h1' color='primary'>
-          Live Chat        
+          Live Chat
         </Typography>
-       
+
         <div className='chat-messages-container'>
           {messages}
-          <div ref={(el) => { this.messagesEnd = el; }}></div>   
+          <div ref={(el) => { this.messagesEnd = el; }}></div>
         </div>
 
         <div>
-          <SubmitMessage 
-            mapId = {this.props.mapId} 
-            token = {this.props.token} 
-            getFeed = {() => this.getFeed(true)} 
-            name = {this.props.name} 
+          <SubmitMessage
+            mapId = {this.props.mapId}
+            token = {this.props.token}
+            getFeed = {() => this.getFeed(true)}
+            name = {this.props.name}
             type = 'chat'
-          />  
+          />
         </div>
 
       </Paper>

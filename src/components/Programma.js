@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import './Programma.css'
 
 class Programma extends Component {
-  render(){  
+  render(){
     return (
       <div className='wedding-content'>
         <h3>Lieve {this.props.name},</h3>
@@ -25,21 +25,21 @@ class Programma extends Component {
         </p>
 
         <h3 style={{ marginTop: '32px' }}>Programma</h3>
-        <table className='programme-table'>  
+        <table className='programme-table'>
           <tr>
             <td>Inloop</td>
-            <td>14:30 - 15:00</td>
+            <td>14:00 - 14:30</td>
           </tr>
           <tr>
             <td>Ceremonie</td>
-            <td>14:30 - 15:00</td>
+            <td>14:30 - 15:30</td>
           </tr>
           <tr>
             <td>Receptie</td>
-            <td>15:00 - 17:00</td>
+            <td>15:30 - 17:00</td>
           </tr>
         </table>
-          
+
         <Button
           variant='contained'
           color='primary'
@@ -49,6 +49,6 @@ class Programma extends Component {
         </Button>
       </div>
     );
-  }  
+  }
 }
 export default Programma;
