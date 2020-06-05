@@ -32,7 +32,7 @@ class App extends Component {
       mapId: 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1',
       imageId: 'een id',
 
-      openChat: true,
+      openChat: false,
 
       firstTime: null
     }

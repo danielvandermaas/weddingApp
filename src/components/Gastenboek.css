@@ -13,19 +13,23 @@
 }
 
 .gastenboek-message {
-  width: 40%;
+  width: 70%;
   background: #ffdfe5;
-  padding: 12px;
+  padding: 18px;
   border-radius: 20px;
   margin: 18px auto;
   text-align: center;
+  font-size: 20px;
 }
 
 .gastenboek-message-title {
   font-weight: bold;
+  text-align: right;
+  text-transform: capitalize;
 }
 
 .gastenboek-message-text, .gastenboek-message-foto {
   margin-top: 8px;
   word-break: break-word;
+  text-align: left;
 }
