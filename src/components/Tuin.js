@@ -10,6 +10,8 @@ import {
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -234,10 +236,16 @@ toCeremonie = () =>{
     return (
       <div className='wedding-content'>
       <div >
-      <p style={{"background":"red"}}> Stap 1: ga naar ontvangst </p>
-    <p style={{"background":"orange"}}> Stap 2: ga naar verzamelen </p>
-    <p style={{"background":"yellow"}}> Stap 3: ga naar de ceremonie </p>
-    <p style={{"background":"blue"}}> Stap 4: ga naar de receptie </p>
+      <Grid container spacing={3}>
+      <Grid item xs={12}>
+      <Paper>
+      <p style={{"background":"red"}}> Stap 1: ga naar ontvangst (14:00-14:30) </p>
+    <p style={{"background":"orange"}}> Stap 2: ga naar verzamelen (14:00-14:30) </p>
+    <p style={{"background":"yellow"}}> Stap 3: ga naar de ceremonie (14:30-15:30)</p>
+    <p style={{"background":"blue"}}> Stap 4: ga naar de receptie (15:30-17:00)</p>
+    </Paper>
+    </Grid>
+    </Grid>
     </div>
       <div style = {{ height: '100%', width: '100%', 'float':'left' }}>
         <Map
