@@ -7,27 +7,27 @@ import './Login.css';
 
 class Login extends Component {
 
-render() {  
+render() {
   return (
     <div className='login-container'>
       <Typography variant='h1' component='h1' color='primary'>
-        Roos &hearts; Eefke        
+        Roos &hearts; Eefke
       </Typography>
       <Typography variant='h1' component='h1' color='primary'>
-        Bruiloft       
+        Bruiloft
       </Typography>
       <TextField
         className='login-textfield'
         name='naam'
-        placeholder="Voer je naam in, deze wordt gebruikt om aan andere gasten te tonen" 
-        value = {this.props.name} 
+        placeholder="Voer je naam in, deze wordt gebruikt om aan andere gasten te tonen"
+        value = {this.props.name}
         onChange = {this.props.setName}
       />
       <TextField
         className='login-textfield'
         name='wachtwoord'
         placeholder="Voer het wachtwoord uit de email in."
-        value = {this.props.password} 
+        value = {this.props.password}
         onChange = {this.props.setPassword}
       />
       <Button

@@ -20,7 +20,7 @@ class Chat extends Component {
       messages: [{
         form: {
           answers: [{ anwser: '' }, { anwser: '' }]
-        } 
+        }
       }]
     };
 
@@ -30,7 +30,7 @@ class Chat extends Component {
 
   componentDidMount() {
     this.getFeed()
-    setInterval(this.getFeed, 3000);
+    setInterval(this.getFeed, 500);
   }
 
   componentWillUnmount() {
@@ -38,7 +38,7 @@ class Chat extends Component {
   }
 
   getFeed = async (scroll) =>{
-    let messageInfo = await fetch('https://api.ellipsis-earth.com/v2/geomessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'limit':40, 'filters':{ 'polygonIds':[16]}})});
+    let messageInfo = await fetch('https://api.ellipsis-earth.com/v2/geomessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'limit':80, 'filters':{ 'polygonIds':[16]}})});
     messageInfo = await messageInfo.json();
     let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
     let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})

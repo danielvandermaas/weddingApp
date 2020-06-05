@@ -21,8 +21,6 @@ class Gastenboek extends Component {
 
   componentDidMount() {
     this.getFeed()
-    setInterval(this.getFeed, 60000);
-
   }
   componentWillUnmount() {
     clearInterval(this.interval);

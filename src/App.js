@@ -58,7 +58,7 @@ class App extends Component {
       }
       else{
         if(this.state.name.length <4){
-          alert("Vul een naam in van op zijn minst 4 letters")
+          alert("Vul een naam in van op zijn minst 3 letters")
         }else{
         res = await res.json()
         this.setState({token: 'Bearer ' + res.token, onScreen:['programma', 'chat', 'menu' ]})
