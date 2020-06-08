@@ -48,8 +48,20 @@ class Tuin extends Component {
 
   componentDidMount() {
 
+    let getStuff = () => {
+      this.getMarkers('ontvangst', 'red');
+      this.getMarkers('verzamelen', 'orange');
+      this.getMarkers('ceremonie', 'yellow');
+      this.getMarkers('receptie', 'blue');
+  
+      this.getPhotoMarkers();
+    }
+
     if (this.props.firstTime) {
       this.flyToPos(WEDDING_POSITION);
+
+      setTimeout(getStuff, 5000);
+
 
       // this.openPopupTimeout = setTimeout(() => {
       //   let leafletMap = this.leafletMap.current.leafletElement;
@@ -62,15 +74,10 @@ class Tuin extends Component {
 
       // }, 5500)
     }
+    else {
+      getStuff();
+    }
 
-    setTimeout(() => {
-      this.getMarkers('ontvangst', 'red');
-      this.getMarkers('verzamelen', 'orange');
-      this.getMarkers('ceremonie', 'yellow');
-      this.getMarkers('receptie', 'blue');
-  
-      this.getPhotoMarkers();
-    }, 5000)
 
 
     let leafletElement = this.leafletMap.current.leafletElement;
