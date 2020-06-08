@@ -25,9 +25,9 @@ class App extends Component {
     super(props);
 
     this.state = {
-      name: 'daan',
+      name: '',
       token:'',
-      password:'rooseneefke2020',
+      password:'',
       onScreen:['login'],
       mapId: 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1',
       imageId: 'een id',
