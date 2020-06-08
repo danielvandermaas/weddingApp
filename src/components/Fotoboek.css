@@ -1,7 +1,9 @@
 .fotoboek-grid {
   height: calc(100% - 100px);
   width: calc(100% - 15px);
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 24px;
 }
 
 .fotoboek-grid > div {

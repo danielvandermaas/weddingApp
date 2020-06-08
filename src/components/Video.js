@@ -6,7 +6,7 @@ class Video extends Component {
     return (
       <div className='wedding-content'>
       <Button
-        style={{ marginTop: '24px'  }}
+        style={{ marginBottom: '24px'  }}
         variant='contained'
         color='primary'
         onClick={() => this.props.setOnScreen(['tuin'])}

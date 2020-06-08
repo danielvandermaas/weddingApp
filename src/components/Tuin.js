@@ -51,22 +51,27 @@ class Tuin extends Component {
     if (this.props.firstTime) {
       this.flyToPos(WEDDING_POSITION);
 
-      this.openPopupTimeout = setTimeout(() => {
-        let leafletMap = this.leafletMap.current.leafletElement;
-        let ontvangstPopup = this.ontvangstPopup.current.leafletElement;
+      // this.openPopupTimeout = setTimeout(() => {
+      //   let leafletMap = this.leafletMap.current.leafletElement;
+      //   let ontvangstPopup = this.ontvangstPopup.current.leafletElement;
 
-        ontvangstPopup
-          .setLatLng(this.state.ontvangstPopup.position)
-          .setContent(this.state.ontvangstPopup.content)
-          .openOn(leafletMap);
+      //   ontvangstPopup
+      //     .setLatLng(this.state.ontvangstPopup.position)
+      //     .setContent(this.state.ontvangstPopup.content)
+      //     .openOn(leafletMap);
 
-      }, 5500)
+      // }, 5500)
     }
-    this.getMarkers('ontvangst', 'red')
-    this.getMarkers('verzamelen', 'orange')
-    this.getMarkers('ceremonie', 'yellow')
-    this.getMarkers('receptie', 'blue')
-    this.getPhotoMarkers();
+
+    setTimeout(() => {
+      this.getMarkers('ontvangst', 'red');
+      this.getMarkers('verzamelen', 'orange');
+      this.getMarkers('ceremonie', 'yellow');
+      this.getMarkers('receptie', 'blue');
+  
+      this.getPhotoMarkers();
+    }, 5000)
+
 
     let leafletElement = this.leafletMap.current.leafletElement;
 
@@ -79,9 +84,9 @@ class Tuin extends Component {
     }
   }
 
-toCeremonie = () =>{
-  this.props.setOnScreen(['ceremonie'])
-}
+  toCeremonie = () => {
+    this.props.setOnScreen(['ceremonie'])
+  }
 
   showPhoto = async (imageId) => {
     this.props.addOnScreen('foto')
@@ -133,20 +138,21 @@ toCeremonie = () =>{
         }})
       }
 
-      if (layer === 'ceremonie'){
-        return(<CircleMarker
-          map={this.refs.map}
-          color = {color}
-          center={position}
-        >
-          <Popup ref={ref}>
-          <h1>
-            <div>Ceremonie</div>
-            <Button onClick = {this.toCeremonie}> Ga naar ceremonie </Button>
-            </h1>
-          </Popup>
-        </CircleMarker>
-)
+      if (layer === 'ceremonie') {
+        return (
+          <CircleMarker
+            map={this.refs.map}
+            color = {color}
+            center={position}
+          >
+            <Popup ref={ref}>
+              <h1>
+                <div>Ceremonie</div>
+                <Button onClick = {this.toCeremonie}>Ga naar ceremonie</Button>
+              </h1>
+            </Popup>
+          </CircleMarker>
+        )
       }
 
       return (
@@ -156,11 +162,11 @@ toCeremonie = () =>{
           center={position}
         >
           <Popup ref={ref}>
-          <h1>
-            <div>{title}</div>
-            <a href={`https://${feature.properties.link}`} target='_blank'>
-              {`https://${feature.properties.link}`}
-            </a>
+            <h1>
+              <div>{title}</div>
+              <a href={`https://${feature.properties.link}`} target='_blank'>
+                {`https://${feature.properties.link}`}
+              </a>
             </h1>
           </Popup>
         </CircleMarker>
@@ -239,38 +245,38 @@ toCeremonie = () =>{
       <Grid container spacing={3}>
       <Grid item xs={12}>
       <Paper>
-      <p style={{"background":"red"}}> Stap 1: ga naar ontvangst (14:00-14:30) </p>
-    <p style={{"background":"orange"}}> Stap 2: ga naar verzamelen (14:00-14:30) </p>
-    <p style={{"background":"yellow"}}> Stap 3: ga naar de ceremonie (14:30-15:30)</p>
-    <p style={{"background":"blue"}}> Stap 4: ga naar de receptie (15:30-17:00)</p>
-    </Paper>
-    </Grid>
-    </Grid>
-    </div>
-      <div style = {{ height: '100%', width: '100%', 'float':'left' }}>
-        <Map
-          center={center}
-          zoom={zoom}
-          style={{ height: '100%', width: '100%' }} ref={this.leafletMap}
-        >
-          <Pane style = {{'zIndex':100}}>
-          <TileLayer
-            url='https://www.google.com/maps/vt?lyrs=y@189&x={x}&y={y}&z={z}' maxNativeZoom={21} maxZoom={21}
-          />
-          </Pane>
-          <Pane style = {{'zIndex':150}}>
-            <TileLayer maxNativeZoom={19} maxZoom={21}
-            url={'https://api.ellipsis-earth.com/v2/tileService/dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1/' + this.state.timestamp + '/rgb/{z}/{x}/{y}?token=' + this.props.token.substring(7,this.props.token.length)}
+        <p style={{"background":"red"}}> Stap 1: ga naar ontvangst (14:00-14:30) </p>
+        <p style={{"background":"orange"}}> Stap 2: ga naar verzamelen (14:00-14:30) </p>
+        <p style={{"background":"yellow"}}> Stap 3: ga naar de ceremonie (14:30-15:30)</p>
+        <p style={{"background":"blue"}}> Stap 4: ga naar de receptie (15:30-17:00)</p>
+      </Paper>
+      </Grid>
+      </Grid>
+      </div>
+        <div style = {{ height: '100%', width: '100%', 'float':'left' }}>
+          <Map
+            center={center}
+            zoom={zoom}
+            style={{ height: '100%', width: '100%' }} ref={this.leafletMap}
+          >
+            <Pane style = {{'zIndex':100}}>
+            <TileLayer
+              url='https://www.google.com/maps/vt?lyrs=y@189&x={x}&y={y}&z={z}' maxNativeZoom={21} maxZoom={21}
             />
             </Pane>
-          <Pane style={{ zIndex: 200 }}>
-            {this.state.verzamelen}
-            {this.state.ceremonie}
-            {this.state.ontvangst}
-            {this.state.receptie}
-            {this.state.foto}
-          </Pane>
-        </Map>
+            <Pane style = {{'zIndex':150}}>
+              <TileLayer maxNativeZoom={19} maxZoom={21}
+              url={'https://api.ellipsis-earth.com/v2/tileService/dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1/' + this.state.timestamp + '/rgb/{z}/{x}/{y}?token=' + this.props.token.substring(7,this.props.token.length)}
+              />
+              </Pane>
+            <Pane style={{ zIndex: 200 }}>
+              {this.state.verzamelen}
+              {this.state.ceremonie}
+              {this.state.ontvangst}
+              {this.state.receptie}
+              {this.state.foto}
+            </Pane>
+          </Map>
         </div>
       </div>
     )

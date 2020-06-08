@@ -1,1 +1,4 @@
 node_modules/
+build/*
+build.tar
+do_publish.sh

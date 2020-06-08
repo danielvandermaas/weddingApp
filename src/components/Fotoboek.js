@@ -5,62 +5,76 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 import './Fotoboek.css';
+import { CircularProgress } from '@material-ui/core';
 
 class Fotoboek extends Component {
 
-state = {'messages':['x']}
+  constructor(props) {
+    super(props)
 
-componentDidMount(props){
-  this.getFeed()
-}
+    this.state = {
+      init: false,
 
-getFeed = async () =>{
+      messages: []
+    };
+  }
+
+  componentDidMount() {
+    this.getFeed()
+  }
+
+  getFeed = async () => {
     let messageInfo = await fetch('https://api.ellipsis-earth.com/v2/geomessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'filters':{ 'polygonIds':[15]}})});
     messageInfo = await messageInfo.json();
     let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
     let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
     messages = await messages.json()
-    this.setState({messages:messages})
+    this.setState({ messages:messages, init: true });
   }
 
   showPhoto = async (imageId) => {
-  this.props.addOnScreen('foto')
-  this.props.setImageId(imageId)
+    this.props.addOnScreen('foto')
+    this.props.setImageId(imageId)
   }
 
 
-render(){
-  return (
-    <div className='wedding-content'>
-    <Button
-      style={{ marginTop: '24px'  }}
-      variant='contained'
-      color='primary'
-      onClick={() => this.props.setOnScreen(['tuin'])}
-    >
-      Terug naar de tuin
-    </Button>
+  render(){
+    return (
+      <div className='wedding-content'>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={() => this.props.setOnScreen(['tuin'])}
+        >
+          Terug naar de tuin
+        </Button>
 
-      <div className='fotoboek-grid'>
-        <Grid container spacing={3}>
+        <div className='fotoboek-grid'>
           {
-            this.state.messages.map((message) => {
-              return(
-                <Grid item xs={3}>
-                  <Paper>
-                    <a onClick = {this.showPhoto.bind(this, message.id)}>
-                      <img style={{ width: '100%' }} src = {message.thumbnail}/>
-                    </a>
-                    <p>{message.message}</p>
-                  </Paper>
-                </Grid>
-              )
-            })
-          }
-        </Grid>
+            this.state.init ? 
+              <Grid container spacing={3}>
+                {
+                  this.state.messages.map((message) => {
+                    return(
+                      <Grid item xs={3}>
+                        <Paper>
+                          <a onClick = {this.showPhoto.bind(this, message.id)}>
+                            <img style={{ width: '100%' }} src = {message.thumbnail}/>
+                          </a>
+                          <p>{message.message}</p>
+                        </Paper>
+                      </Grid>
+                    )
+                  })
+                }
+              </Grid> :
+              <CircularProgress color='primary' style={{ marginTop: '80px', width: '200px', height: '200px' }} />          
+          } 
+
+
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 }
 export default Fotoboek;
