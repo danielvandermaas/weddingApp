@@ -2,7 +2,7 @@ var theme =
 {
 	palette: {
 		common: { white: '#fff' },
-		primary: { main: '#ffacbb', contrastText: '#fff' },
+		primary: { main: '#83752e', contrastText: '#fff' },
     secondary: { main: '#ffffff', contrastText: '#ffd4db' },
     info: { main: '#f5f5f5' }
 	},
@@ -23,11 +23,19 @@ var theme =
 			'"Exo 2"',
 		].join(','),
 		h1: {
-			fontFamily: '"Exo 2", "Roboto Condensed", "Roboto", "Arial", "sans-serif"',
+			fontFamily: '"ModernLove", "Exo 2", "Roboto Condensed", "Roboto", "Arial", "sans-serif"',
 			fontWeight: 500,
 			lineHeight: 1.25,
 			textTransform: 'uppercase',
 			fontSize: '2.5rem',
+			display: 'block',
+			zIndex: 1,
+/*			backgroundImage: "url('/brushstroke.svg')",
+			backgroundRepeat: 'no-repeat',
+			backgroundPosition: 'center',
+			backgroundSize: '100% 100%',
+			padding: '15vh 25vw',
+			margin: '-15vh -25vw',*/
 		},
 		h2: {
 			fontFamily: '"Exo 2", "Roboto Condensed", "Roboto", "Arial", "sans-serif"',

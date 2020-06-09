@@ -1,0 +1,29 @@
+.modal-view .modal-view-content
+{
+	position: relative;
+}
+
+.modal-view .modal-view-content img
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.modal-view .modal-view-content button
+{
+	position: absolute;
+	top: 50%;
+	z-index: 1;
+}
+
+.modal-view .modal-view-content button.left
+{
+	left: 0;
+}
+
+.modal-view .modal-view-content button.right
+{
+	right: 0;
+}

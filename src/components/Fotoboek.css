@@ -1,11 +1,14 @@
 .fotoboek-grid {
-  height: calc(100% - 100px);
-  width: calc(100% - 15px);
-  overflow-y: auto;
-  overflow-x: hidden;
   margin-top: 24px;
 }
 
-.fotoboek-grid > div {
-  padding: 18px;
+.fotoboek-grid button
+{
+	height: 100%;
+	width: 100%;
+	padding: 0;
+}
+
+.fotoboek-grid div.MuiGrid-item, .fotoboek-grid div.MuiPaper-root, .fotoboek-grid div.MuiGrid-item img {
+	border-radius: 5px;
 }

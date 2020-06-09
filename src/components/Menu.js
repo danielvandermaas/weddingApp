@@ -44,6 +44,12 @@ class Menu extends Component {
       else if (onScreen.includes('fotoboek')) {
         value = 2;
       }
+      else if (onScreen.includes('video')) {
+        value = 3;
+      }
+      else if (onScreen.includes('ceremonie')) {
+        value = 4;
+      }
     }
 
 
@@ -52,16 +58,20 @@ class Menu extends Component {
         <Typography variant='h1' component='h1' color='primary'>
           Roos &hearts; Eefke
         </Typography>
-        <div className='menu-tabs'>
-          <Tabs variant='fullWidth' textColor='primary' value={value} onChange={this.onTabClick}>
-            <Tab label="Programma"/>
-            <Tab label="Gastenboek"/>
-            <Tab label="Fotoboek"/>
-            <Tab label="Bekijk de tuin"/>
-            <Tab label="Ceremonie"/>
-          </Tabs>
-        </div>
-
+        <Tabs
+          variant='fullWidth'
+          indicatorColor='primary'
+          textColor='primary'
+          value={value}
+          onChange={this.onTabClick}
+          className='menu-tabs'
+        >
+          <Tab label="Programma"/>
+          <Tab label="Gastenboek"/>
+          <Tab label="Fotoboek"/>
+          <Tab label="Bekijk de tuin"/>
+          <Tab label="Ceremonie"/>
+        </Tabs>
       </div>
     );
   }

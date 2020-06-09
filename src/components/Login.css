@@ -1,4 +1,4 @@
-.login-container {
+/*.login-container {
   text-align: center;
   padding-top: 25vh;
 }
@@ -30,4 +30,30 @@ button.login-button {
   margin: auto;
   margin-top: 48px;
   font-weight: bold;
+}*/
+
+.MuiContainer-root.login-container
+{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div.loginInput
+{
+  max-width: 250px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+div.loginInput+div.loginInput
+{
+  margin-top: 1rem;
+}
+
+.login-container button
+{
+  margin-top: 1rem;
 }

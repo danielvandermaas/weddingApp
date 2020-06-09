@@ -1,9 +1,52 @@
-.programme-table {
-  margin: auto;
-  border-spacing: 40px 0px;
-  margin-bottom: 40px;
+section#programma section
+{
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+
+  -webkit-column-gap: 20px;
+  -moz-column-gap: 20px;
+  column-gap: 20px;
 }
 
-.programme-table tr td:first-of-type{
-  text-align: left;
+section#programma section p
+{
+	margin-bottom: 1rem;
 }
+
+.programme-table {
+  margin: 30px auto;
+  width: 100%;
+  max-width: 250px;
+}
+
+.programme-table td.time p
+{
+	white-space: nowrap;
+	text-align: right;
+}
+
+.programme-table thead h1
+{
+	text-align: center;
+}
+
+section#programma button
+{
+  margin-bottom: 1rem;
+}
+
+ @media screen and (orientation:portrait) {
+  section#programma section
+  {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+
+    -webkit-column-gap: 0;
+    -moz-column-gap: 0;
+    column-gap: 0;
+
+    padding: 20px;
+  }
+ }

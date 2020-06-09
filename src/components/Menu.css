@@ -1,9 +1,9 @@
 .menu-tabs {
-  width: 800px;
-  max-width: 90%;
-  margin: auto;
+  hyphens: auto;
 }
 
 .menu-container {
-  margin-top: 20px;
+  padding-top: 20px;
+  background-color: white;
+  box-shadow: 2px 2px 2px #83752e40;
 }

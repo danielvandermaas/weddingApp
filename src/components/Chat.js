@@ -73,7 +73,7 @@ class Chat extends Component {
       }
 
       return (
-        <div className={messageClass}>
+        <div className={messageClass} key={'chatMessage_' + message.id}>
           <div className='chat-message-title'>{`${user} ${moment(message.date).format('MM-DD HH:mm')}`}</div>
           <div className='chat-message-text'>{text}</div>
           {
@@ -104,16 +104,13 @@ class Chat extends Component {
           <div ref={(el) => { this.messagesEnd = el; }}></div>
         </div>
 
-        <div>
-          <SubmitMessage
-            mapId = {this.props.mapId}
-            token = {this.props.token}
-            getFeed = {() => this.getFeed(true)}
-            name = {this.props.name}
-            type = 'chat'
-          />
-        </div>
-
+        <SubmitMessage
+          mapId = {this.props.mapId}
+          token = {this.props.token}
+          getFeed = {() => this.getFeed(true)}
+          name = {this.props.name}
+          type = 'chat'
+        />
       </Paper>
     );
   }
@@ -122,4 +119,4 @@ class Chat extends Component {
 export default Chat;
 
 
-{/* <SubmitMessage mapId = {this.props.mapId} token = {this.props.token} getFeed = {this.getFeed} name = {this.props.name} type = 'chat'/> */}
+/* <SubmitMessage mapId = {this.props.mapId} token = {this.props.token} getFeed = {this.getFeed} name = {this.props.name} type = 'chat'/> */

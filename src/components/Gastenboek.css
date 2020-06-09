@@ -1,8 +1,3 @@
-.gastenboek-chat-container {
-  height: calc(100% - 240px);
-  overflow-y: auto;
-}
-
 .gastenboek-chat-container ul {
   list-style: none;
 }

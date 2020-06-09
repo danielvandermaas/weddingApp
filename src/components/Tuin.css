@@ -1,0 +1,38 @@
+#tuin
+{
+	display: grid;
+	height: 100%;
+	grid-auto-flow: column;
+	grid-auto-columns: 2fr 1fr;
+	justify-content: center;
+	align-items: center;
+}
+
+#tuin h1
+{
+	font-size: 1.5rem;
+}
+
+#tuin .leaflet-popup-content
+{
+	text-align: center;
+}
+
+#tuin .MuiList-root
+{
+	padding-left: 20px;
+}
+
+#tuin .MuiListItemIcon-root svg
+{
+	 -webkit-filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .25));
+  filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .25));
+}
+
+ @media screen and (orientation:portrait) {
+ 	#tuin
+ 	{
+ 		grid-auto-flow: row;
+		grid-auto-rows: 2fr 1fr;
+ 	}
+ }

@@ -32,10 +32,14 @@ class App extends Component {
       mapId: 'dd3cee74-98ec-4fd6-bd7a-7fdd3bb409d1',
       imageId: 'een id',
 
+      imageType: null,
+
       openChat: false,
 
       firstTime: null
     }
+
+    this.fotoboek = React.createRef();
   }
 
   setPosition = (e)=>{
@@ -66,6 +70,13 @@ class App extends Component {
     }
   }
 
+  setImageType = (imageType) => {
+    if (imageType !== this.state.imageType)
+    {
+      this.setState({imageType: imageType})
+    }
+  }
+
   setImageId = (imageId)=>{
     this.setState({imageId:imageId})
   }
@@ -93,11 +104,7 @@ class App extends Component {
 
   removeFromScreen = (e)=>{
     let onScreen = [...this.state.onScreen]
-    onScreen = onScreen.map((el)=>{
-      if(el != 'foto'){
-        return(el)
-      }
-    })
+    onScreen = onScreen.filter((el) => el !== 'foto')
     this.setState({onScreen: onScreen})
   }
 
@@ -150,7 +157,7 @@ class App extends Component {
 
     let fotoboek;
     if(this.state.onScreen.includes('fotoboek')){
-      fotoboek = <Fotoboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId}/>
+      fotoboek = <Fotoboek ref={this.fotoboek} mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} setImageType={this.setImageType}/>
     }
 
     let gastenboek;
@@ -173,24 +180,27 @@ class App extends Component {
     }
     let foto;
     if(this.state.onScreen.includes('foto')){
-      foto = <Foto setOnScreen = {this.setOnScreen} imageId = {this.state.imageId} mapId = {this.state.mapId} removeFromScreen = {this.removeFromScreen} token = {this.state.token}/>
+      foto = <Foto setOnScreen = {this.setOnScreen} imageId = {this.state.imageId} mapId = {this.state.mapId} removeFromScreen = {this.removeFromScreen} token = {this.state.token} imageType={this.state.imageType} fotoboekRef={this.fotoboek} setImageId = {this.setImageId} setImageType={this.setImageType}/>
     }
 
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        {menu}
-
-        {login}
-        {programma}
-        {foto}
-        {fotoboek}
-        {gastenboek}
-        {tuin}
-        {this.state.onScreen.includes('video') ? <Video setOnScreen = {this.setOnScreen}/> : null}
-        {this.state.onScreen.includes('ceremonie') ? <Ceremonie setOnScreen = {this.setOnScreen}/> : null}
-        {chat}
-        {chatButton}
+        <section id='content'>
+          {menu}
+          {login}
+          {programma}
+          {foto}
+          {fotoboek}
+          {gastenboek}
+          {tuin}
+          {this.state.onScreen.includes('video') ? <Video setOnScreen = {this.setOnScreen}/> : null}
+          {this.state.onScreen.includes('ceremonie') ? <Ceremonie setOnScreen = {this.setOnScreen}/> : null}
+        </section>
+        <section id='chat'>
+          {chat}
+          {chatButton}
+        </section>
       </ThemeProvider>
     </div>
   );

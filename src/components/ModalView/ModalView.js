@@ -15,13 +15,16 @@ class ModalView extends Component {
       message: ''
     };
   }
-  
+
   componentDidMount() {
 
   }
 
-  closeModal = () => {
-    this.props.onModalChange(null);
+  closeModal = (e, override = false) => {
+    if(override || (e.target.tagName === 'DIV' && e.target.className && e.target.className.includes('modal-view-content')))
+    {
+      this.props.onModalChange(null);
+    }
   }
 
   render() {
@@ -34,7 +37,7 @@ class ModalView extends Component {
     return (
       <div className='modal-view' onClick={this.closeModal}>
         <div className='modal-view-close-button-container'>
-          <IconButton color='secondary' onClick={this.closeModal}>
+          <IconButton color='secondary' onClick={(e) => this.closeModal(e, true)}>
             <CloseIcon/>
           </IconButton>
         </div>

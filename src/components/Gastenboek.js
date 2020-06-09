@@ -3,7 +3,8 @@ import SubmitMessage from './SubmitMessage';
 import moment from 'moment';
 
 import Button from '@material-ui/core/Button';
-import { CircularProgress } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 import './Gastenboek.css'
@@ -35,7 +36,7 @@ class Gastenboek extends Component {
     };
   }
 
-  componentDidMount() {    
+  componentDidMount() {
     this.getFeed()
   }
   componentWillUnmount() {
@@ -43,7 +44,7 @@ class Gastenboek extends Component {
   }
 
 
-  getFeed = async (scroll) => {    
+  getFeed = async (scroll) => {
     let messageInfo = await fetch('https://api.ellipsis-earth.com/v2/geomessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'limit':30, 'filters':{ 'polygonIds':[14]}})});
     messageInfo = await messageInfo.json();
     let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
@@ -67,7 +68,7 @@ class Gastenboek extends Component {
   }
 
   render() {
-    let messages = this.state.messages.map((message) => {
+    let messages = this.state.messages.map((message, index) => {
       let user = message.form.answers[0].answer;
       let text = message.form.answers[1].answer;
 
@@ -78,7 +79,7 @@ class Gastenboek extends Component {
       let fontIndex = user[0].toLowerCase().charCodeAt(0) % FONT.length;
       let font = FONT[fontIndex];
 
-      console.log(fontIndex);
+      //console.log(fontIndex);
 
       let messageClass = 'gastenboek-message';
 
@@ -87,7 +88,7 @@ class Gastenboek extends Component {
       }
 
       return (
-        <div className={messageClass} style={{ fontFamily: font }}>
+        <div className={messageClass} style={{ fontFamily: font }} key={'gastenBoekEntry_' + index}>
           <div className='gastenboek-message-text'>{text}</div>
           {
             message.image ?
@@ -103,7 +104,8 @@ class Gastenboek extends Component {
     })
 
     return (
-      <div className='wedding-content'>
+      <div className='wedding-content' id='gastenBoek'>
+      <Container maxWidth="md">
         <Button
           variant='contained'
           color='primary'
@@ -124,19 +126,18 @@ class Gastenboek extends Component {
 
         <div className='gastenboek-chat-container'>
           {
-            this.state.init ? 
+            this.state.init ?
               <React.Fragment>
                 {messages}
                 <div ref={(el) => { this.messagesEnd = el; }}></div>
               </React.Fragment> :
-              <CircularProgress color='primary' style={{ marginTop: '80px', width: '200px', height: '200px' }} />          
+              <CircularProgress color='primary' style={{ marginTop: '80px', width: '100px', height: '100px' }} />
           }
-         
+
         </div>
 
-
-      </div>
-    );
+      </Container>
+    </div>);
   }
 }
 

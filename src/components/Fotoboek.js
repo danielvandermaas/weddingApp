@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 
 import './Fotoboek.css';
 import { CircularProgress } from '@material-ui/core';
@@ -32,7 +33,8 @@ class Fotoboek extends Component {
     this.setState({ messages:messages, init: true });
   }
 
-  showPhoto = async (imageId) => {
+  showPhoto = async (imageId, type) => {
+    if (type){this.props.setImageType(type)}
     this.props.addOnScreen('foto')
     this.props.setImageId(imageId)
   }
@@ -40,7 +42,8 @@ class Fotoboek extends Component {
 
   render(){
     return (
-      <div className='wedding-content'>
+      <div className='wedding-content' id='fotoBoek'>
+        <Container maxWidth="md">
         <Button
           variant='contained'
           color='primary'
@@ -51,28 +54,33 @@ class Fotoboek extends Component {
 
         <div className='fotoboek-grid'>
           {
-            this.state.init ? 
+            this.state.init ?
               <Grid container spacing={3}>
-                {
-                  this.state.messages.map((message) => {
-                    return(
-                      <Grid item xs={3}>
-                        <Paper>
-                          <a onClick = {this.showPhoto.bind(this, message.id)}>
-                            <img style={{ width: '100%' }} src = {message.thumbnail}/>
-                          </a>
-                          <p>{message.message}</p>
-                        </Paper>
-                      </Grid>
-                    )
-                  })
-                }
+              {
+                this.state.messages.map((message, index) => {
+                  let type = 'normal';
+                  if (index === 0) {type = 'first'};
+                  if (index === this.state.messages.length - 1){type = 'last'}
+
+                  return(
+                    <Grid item key={'fotoboekRij_' + index}>
+                      <Paper>
+                        <Button onClick = {() => this.showPhoto(message.id, type)}>
+                          <img style={{ width: '100%' }} src = {message.thumbnail}/>
+                        </Button>
+                        <p>{message.message}</p>
+                      </Paper>
+                    </Grid>
+                  )
+                })
+              }
               </Grid> :
-              <CircularProgress color='primary' style={{ marginTop: '80px', width: '200px', height: '200px' }} />          
-          } 
+              <CircularProgress color='primary' style={{ marginTop: '80px', width: '100px', height: '100px' }} />
+          }
 
 
         </div>
+        </Container>
       </div>
     );
   }

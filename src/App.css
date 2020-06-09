@@ -1,29 +1,75 @@
-body {
-  margin: 0px;
+@font-face {
+  font-family: 'ModernLove';
+  src: local('ModernLove'), url(./fonts/moderLoveCaps.ttf) format('truetype');
 }
 
 .App {
   width: 100vw;
   height: 100vh;
-  overflow: auto;
   text-align: center;
+  /*background: #ffdfe5;*/
   /* background: url("/background.jpeg") */
-  background: #ffdfe5;
-  background: linear-gradient(90deg, #ffdfe5 0%, rgba(255,255,255,1) 15%, rgba(255,255,255,1) 85%, #ffdfe5 100%);
+  background: url("/weddingBackground.jpg");
+  /*background: linear-gradient(90deg, #ffdfe5 0%, rgba(255,255,255,1) 15%, rgba(255,255,255,1) 85%, #ffdfe5 100%);*/
+  overflow: hidden;
+}
+
+section#content
+{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
 }
 
 .wedding-content {
-  position: relative;
-  max-width: 800px;
-  margin: auto;
-  margin-top: 36px;
-  height: calc(100vh - 200px);
-  overflow-y: auto;
+  max-width: 100%;
+  height: 100%;
   z-index: 1;
+  overflow-x: hidden;
+}
+
+.wedding-content .MuiContainer-root
+{
+  height: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .wedding-chat-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  z-index: 2;
+}
+
+.MuiTypography-root.brush
+{
+  position: relative;
+  padding: 50px;
+  margin: -50px;
+  pointer-events: stroke;
+}
+
+.brush.MuiTypography-gutterBottom
+{
+  margin: calc(-50px + 0.35em);
+}
+
+.brush:after
+{
+  content : "";
+  display: block;
+  background-image: url('/brushstroke.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  width: 150%;
+  height: 150%;
+  opacity: 0.90;
+  top: -25%;
+  left: -25%;
+  position: absolute;
+  pointer-events: none;
 }
