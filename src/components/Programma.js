@@ -26,7 +26,7 @@ class Programma extends Component {
             We hopen dat we op deze manier wat van jullie aanwezigheid mee krijgen!
           </Typography>
           <Typography gutterBottom>
-            Het programma hiernaast geeft een leidraad waar in de digitale tuin je op welk moment moet zijn. De eerste stap is om naar de inloop marker aan het begin van de tuin te gaan.
+            Het programma hiernaast geeft een leidraad waar in de digitale tuin je op welk moment moet zijn. De eerste stap is om op de inloop marker te klikken en vervolgens naar de meeting link te gaan.
           </Typography>
           <Typography gutterBottom>
             Mocht je technische problemen ondervinden in de digitale tuin bel dan Minghai op <Link color='primary' href='tel:+31658807827'>+31 6 58807827</Link>.

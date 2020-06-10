@@ -61,8 +61,8 @@ class App extends Component {
         alert("Verkeerd wachtwoord, in de verstuurde mail staat het juiste wachtwoord. Letop dat je geen spaties in je wachtwoord hebt. Houd ook rekening met hoofdletters.")
       }
       else{
-        if(this.state.name.length <4){
-          alert("Vul een naam in van op zijn minst 3 letters")
+        if(this.state.name.length <2){
+          alert("Vul een naam in van op zijn minst 2 letters")
         }else{
         res = await res.json()
         this.setState({token: 'Bearer ' + res.token, onScreen:['programma', 'chat', 'menu' ]})
