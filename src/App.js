@@ -34,7 +34,7 @@ class App extends Component {
 
       imageType: null,
 
-      openChat: false,
+      openChat: true,
 
       firstTime: null
     }
