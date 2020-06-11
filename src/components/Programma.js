@@ -11,7 +11,15 @@ class Programma extends Component {
   render(){
     return (<section className='wedding-content' id='programma'>
       <Container maxWidth="md">
-        <Typography variant="h1" component="h1" color='primary' gutterBottom className='brush'>Lieve {this.props.name},</Typography>
+        <Typography 
+          variant="h1" 
+          component="h1" 
+          color='primary' 
+          gutterBottom 
+          className='brush'
+        >
+          Lieve {this.props.name},
+        </Typography>
         <section>
           <Typography gutterBottom>
             Wat leuk dat je naar de half-digitale bruiloft van Eefke en Roos bent gekomen! We hebben jullie er graag bij en hebben daarom naast de tuin ook een digitale tuin ingericht vanuit waar jullie gezellig mee kunnen doen.
@@ -26,14 +34,22 @@ class Programma extends Component {
             We hopen dat we op deze manier wat van jullie aanwezigheid mee krijgen!
           </Typography>
           <Typography gutterBottom>
-            Het programma hiernaast geeft een leidraad waar in de digitale tuin je op welk moment moet zijn. De eerste stap is om naar de inloop marker aan het begin van de tuin te gaan.
+            Het programma hiernaast geeft een leidraad waar in de digitale tuin je op welk moment moet zijn. De eerste stap is om op de inloop marker te klikken en vervolgens naar de meeting link te gaan.
           </Typography>
           <Typography gutterBottom>
             Mocht je technische problemen ondervinden in de digitale tuin bel dan Minghai op <Link color='primary' href='tel:+31658807827'>+31 6 58807827</Link>.
           </Typography>
         </section>
 
-        <Typography variant="h1" component="h1" color='primary' className='brush'>Programma</Typography>
+        <Typography 
+          variant="h1" 
+          component="h1" 
+          color='primary' 
+          className='brush'
+          style={{ marginTop: '0px' }}
+        >
+          Programma
+        </Typography>
         <table className='programme-table'>
 {/*          <thead>
             <tr>

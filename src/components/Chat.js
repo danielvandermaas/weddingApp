@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import SubmitMessage from './SubmitMessage';
 
@@ -14,14 +15,10 @@ class Chat extends Component {
     super(props);
 
     this.state = {
-      firstTime: false,
+      init: false,
 
       time: 2,
-      messages: [{
-        form: {
-          answers: [{ anwser: '' }, { anwser: '' }]
-        }
-      }]
+      messages: []
     };
 
     this.messageEnd = React.createRef();
@@ -30,25 +27,30 @@ class Chat extends Component {
 
   componentDidMount() {
     this.getFeed()
-    setInterval(this.getFeed, 500);
+    this.chatRefreshInterval = setInterval(this.getFeed, 3000);
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearInterval(this.chatRefreshInterval);
   }
 
   getFeed = async (scroll) =>{
     let messageInfo = await fetch('https://api.ellipsis-earth.com/v2/geomessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'limit':80, 'filters':{ 'polygonIds':[16]}})});
     messageInfo = await messageInfo.json();
-    let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
-    let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
-    messages = await messages.json();
-    messages = messages.reverse();
+    let messageIds = messageInfo.messages.map((x) =>{ return(x.id) })
+
+    let messages = [];
+
+    if (messageIds.length > 0) {
+      messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
+      messages = await messages.json();
+      messages = messages.reverse();
+    } 
 
     this.setState({ messages:messages }, () => {
-      if (!this.state.firstTime) {
+      if (!this.state.init) {
         setTimeout(() => this.messagesEnd.scrollIntoView(), 10);
-        this.setState({ firstTime: true });
+        this.setState({ init: true });
       }
       else if (scroll) {
         setTimeout(() => this.messagesEnd.scrollIntoView({ behavior: "smooth" }), 10);
@@ -89,8 +91,9 @@ class Chat extends Component {
     });
 
     let containerClass = 'chat-container';
-    if (!this.state.firstTime) {
-      containerClass += ' chat-container-hidden';
+    if (!this.state.init) {
+      // containerClass += ' chat-container-hidden';
+      messages.push(<CircularProgress color='primary' />);
     }
 
     return (

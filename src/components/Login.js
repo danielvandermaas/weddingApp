@@ -16,9 +16,11 @@ render() {
         Bruiloft
       </Typography>
       <TextField
+      
         name='naam'
         fullWidth
-        placeholder="Voer je naam in, deze wordt gebruikt om aan andere gasten te tonen"
+        placeholder="Uw naam"
+        helperText='Wordt gebruikt in de chat'
         value = {this.props.name}
         onChange = {this.props.setName}
         className='loginInput'
@@ -26,7 +28,8 @@ render() {
       <TextField
         name='wachtwoord'
         fullWidth
-        placeholder="Voer het wachtwoord uit de email in."
+        placeholder="Wachtwoord"
+        helperText='Deze heeft u gekregen in de uitnodigings email'
         value = {this.props.password}
         onChange = {this.props.setPassword}
         className='loginInput'

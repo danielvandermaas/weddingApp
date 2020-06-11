@@ -1,6 +1,7 @@
 .chat-container {
   position: fixed;
-  max-width: 400px;
+  max-width: 80%;
+  width: 400px;
   right: 20px;
   top: 20px;
   margin-left: 10px;
