@@ -48,13 +48,15 @@ section#content
 {
   position: relative;
   padding: 50px;
-  margin: -50px;
+  margin-top: -10px;
+  margin-bottom: -40px;
   pointer-events: stroke;
 }
 
 .brush.MuiTypography-gutterBottom
 {
-  margin: calc(-50px + 0.35em);
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .brush:after

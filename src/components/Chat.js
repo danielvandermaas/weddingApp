@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import SubmitMessage from './SubmitMessage';
 
@@ -14,14 +15,10 @@ class Chat extends Component {
     super(props);
 
     this.state = {
-      firstTime: false,
+      init: false,
 
       time: 2,
-      messages: [{
-        form: {
-          answers: [{ anwser: '' }, { anwser: '' }]
-        }
-      }]
+      messages: []
     };
 
     this.messageEnd = React.createRef();
@@ -30,11 +27,11 @@ class Chat extends Component {
 
   componentDidMount() {
     this.getFeed()
-    setInterval(this.getFeed, 500);
+    this.chatRefreshInterval = setInterval(this.getFeed, 3000);
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearInterval(this.chatRefreshInterval);
   }
 
   getFeed = async (scroll) =>{
@@ -46,9 +43,9 @@ class Chat extends Component {
     messages = messages.reverse();
 
     this.setState({ messages:messages }, () => {
-      if (!this.state.firstTime) {
+      if (!this.state.init) {
         setTimeout(() => this.messagesEnd.scrollIntoView(), 10);
-        this.setState({ firstTime: true });
+        this.setState({ init: true });
       }
       else if (scroll) {
         setTimeout(() => this.messagesEnd.scrollIntoView({ behavior: "smooth" }), 10);
@@ -89,8 +86,9 @@ class Chat extends Component {
     });
 
     let containerClass = 'chat-container';
-    if (!this.state.firstTime) {
-      containerClass += ' chat-container-hidden';
+    if (!this.state.init) {
+      // containerClass += ' chat-container-hidden';
+      messages.push(<CircularProgress color='primary' />);
     }
 
     return (

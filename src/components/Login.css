@@ -43,9 +43,14 @@ button.login-button {
 
 div.loginInput
 {
-  max-width: 250px;
+  max-width: 80%;
+  width: 300px;
   margin-top: 2rem;
   margin-bottom: 1rem;
+}
+
+div.loginInput > div {
+  padding: 2px 4px;
 }
 
 div.loginInput+div.loginInput
