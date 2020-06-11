@@ -48,8 +48,14 @@ class Gastenboek extends Component {
     let messageInfo = await fetch('https://api.ellipsis-earth.com/v2/geomessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'limit':30, 'filters':{ 'polygonIds':[14]}})});
     messageInfo = await messageInfo.json();
     let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
-    let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
-    messages = await messages.json();
+
+    let messages = [];
+    
+    if (messageIds.length > 0) {
+      messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
+      messages = await messages.json();
+    }
+
     // messages = messages.reverse();
     this.setState({ messages: messages, init: true }, () => {
       if (!this.firstTime) {

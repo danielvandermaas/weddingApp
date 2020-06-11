@@ -37,10 +37,15 @@ class Chat extends Component {
   getFeed = async (scroll) =>{
     let messageInfo = await fetch('https://api.ellipsis-earth.com/v2/geomessage/ids',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'limit':80, 'filters':{ 'polygonIds':[16]}})});
     messageInfo = await messageInfo.json();
-    let messageIds = messageInfo.messages.map((x) =>{return(x.id)})
-    let messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
-    messages = await messages.json();
-    messages = messages.reverse();
+    let messageIds = messageInfo.messages.map((x) =>{ return(x.id) })
+
+    let messages = [];
+
+    if (messageIds.length > 0) {
+      messages = await fetch('https://api.ellipsis-earth.com/v2/geomessage/get',{method:'POST',  headers: {'Content-Type': 'application/json', 'Authorization': this.props.token}, body:JSON.stringify({'mapId':this.props.mapId, 'type': 'polygon', 'messageIds': messageIds })})
+      messages = await messages.json();
+      messages = messages.reverse();
+    } 
 
     this.setState({ messages:messages }, () => {
       if (!this.state.init) {
