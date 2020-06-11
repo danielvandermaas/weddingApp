@@ -7,3 +7,14 @@
   background-color: white;
   box-shadow: 2px 2px 2px #83752e40;
 }
+
+.menu-tabs .MuiTabs-flexContainer {
+    display: inline-flex;
+}
+
+@media (max-width: 599.95px) {
+	.menu-tabs .MuiTabs-scrollButtonsDesktop
+	{
+    display: inline-flex;
+	}
+}

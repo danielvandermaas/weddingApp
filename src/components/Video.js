@@ -6,14 +6,14 @@ class Video extends Component {
   render() {
     return (<div className='wedding-content' id='tuinVideo'>
       <Container maxWidth="md">
-      <Button
+      {/*<Button
         style={{ marginBottom: '24px'  }}
         variant='contained'
         color='primary'
         onClick={() => this.props.setOnScreen(['tuin'])}
       >
         Terug naar de tuin
-      </Button>
+      </Button>*/}
       <iframe
         width='100%'
         height='500px'

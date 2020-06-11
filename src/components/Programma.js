@@ -57,13 +57,13 @@ class Programma extends Component {
           </tbody>
         </table>
 
-        <Button
+        {/*<Button
           variant='contained'
           color='primary'
           onClick={() => this.props.setOnScreen(['tuin'])}
         >
           Ga naar de tuin
-        </Button>
+        </Button>*/}
       </Container>
     </section>);
   }

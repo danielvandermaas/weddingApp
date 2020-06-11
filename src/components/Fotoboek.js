@@ -44,18 +44,18 @@ class Fotoboek extends Component {
     return (
       <div className='wedding-content' id='fotoBoek'>
         <Container maxWidth="md">
-        <Button
+        {/*<Button
           variant='contained'
           color='primary'
           onClick={() => this.props.setOnScreen(['tuin'])}
         >
           Terug naar de tuin
-        </Button>
+        </Button>*/}
 
         <div className='fotoboek-grid'>
           {
             this.state.init ?
-              <Grid container spacing={3}>
+              <Grid container spacing={3} justify='center'>
               {
                 this.state.messages.map((message, index) => {
                   let type = 'normal';

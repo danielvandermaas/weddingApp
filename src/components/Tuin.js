@@ -168,7 +168,7 @@ class Tuin extends Component {
             </Typography>
             {
               layer === 'ceremonie'
-              ? <Button color='primary' onClick={this.toCeremonie}>Ga naar ceremonie</Button>
+              ? <Button color='primary' variant='contained' onClick={this.toCeremonie}>Naar de ceremonie</Button>
               : <Link href={`https://${feature.properties.link}`} target='_blank'>
                   {`https://${feature.properties.link}`}
                 </Link>
@@ -218,7 +218,7 @@ class Tuin extends Component {
           key={'photoMarker_' + index}
         >
           <Popup>
-            <Button color='primary' onClick={this.showPhoto.bind(this, messages.messages[0].id)}>Foto van locatie</Button>
+            <Button variant='contained' color='primary' onClick={this.showPhoto.bind(this, messages.messages[0].id)}>Bekijk foto</Button>
           </Popup>
         </CircleMarker>
       );
