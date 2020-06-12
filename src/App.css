@@ -44,13 +44,20 @@ section#content
   z-index: 2;
 }
 
+.wedding-tuin-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
 .MuiTypography-root.brush
 {
   position: relative;
   padding: 50px;
   margin-top: -10px;
   margin-bottom: -40px;
-  pointer-events: stroke;
 }
 
 .brush.MuiTypography-gutterBottom
@@ -74,4 +81,8 @@ section#content
   left: -25%;
   position: absolute;
   pointer-events: none;
+}
+
+iframe {
+  margin-top: 20px;
 }

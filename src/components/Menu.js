@@ -59,7 +59,8 @@ class Menu extends Component {
           Roos &hearts; Eefke
         </Typography>
         <Tabs
-          variant='fullWidth'
+          variant='scrollable'
+          scrollButtons="auto"
           indicatorColor='primary'
           textColor='primary'
           value={value}

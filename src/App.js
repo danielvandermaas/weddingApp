@@ -118,6 +118,7 @@ class App extends Component {
     let menu = null;
     let chatButton = null;
     let chat = null;
+    let tuinButton = null;
 
     if (!isLogin){
       menu = <Menu setOnScreen={this.setOnScreen} onScreen={this.state.onScreen}/>
@@ -129,6 +130,18 @@ class App extends Component {
             onClick={this.onToggleChat}
           >
             <ChatIcon/>
+          </Button>
+        </div>
+      );
+
+      tuinButton = (
+        <div className='wedding-tuin-button'>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => this.setOnScreen(['tuin'])}
+          >
+            Naar de Tuin
           </Button>
         </div>
       );
@@ -199,6 +212,7 @@ class App extends Component {
         </section>
         <section id='chat'>
           {chat}
+          {this.state.onScreen.includes('tuin') ? null : tuinButton}
           {chatButton}
         </section>
       </ThemeProvider>

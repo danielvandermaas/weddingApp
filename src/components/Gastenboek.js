@@ -112,13 +112,13 @@ class Gastenboek extends Component {
     return (
       <div className='wedding-content' id='gastenBoek'>
       <Container maxWidth="md">
-        <Button
+        {/*<Button
           variant='contained'
           color='primary'
           onClick={() => this.props.setOnScreen(['tuin'])}
         >
           Terug naar de tuin
-        </Button>
+        </Button>*/}
 
         <div className='gastenboek-submit-container'>
           <SubmitMessage
