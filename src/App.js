@@ -129,6 +129,7 @@ class App extends Component {
             color='primary'
             onClick={this.onToggleChat}
           >
+            {this.state.openChat ? 'Sluit chat ' : 'Open chat '}
             <ChatIcon/>
           </Button>
         </div>

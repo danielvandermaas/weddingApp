@@ -11,11 +11,11 @@ class Programma extends Component {
   render(){
     return (<section className='wedding-content' id='programma'>
       <Container maxWidth="md">
-        <Typography 
-          variant="h1" 
-          component="h1" 
-          color='primary' 
-          gutterBottom 
+        <Typography
+          variant="h1"
+          component="h1"
+          color='primary'
+          gutterBottom
           className='brush'
         >
           Lieve {this.props.name},
@@ -34,17 +34,17 @@ class Programma extends Component {
             We hopen dat we op deze manier wat van jullie aanwezigheid mee krijgen!
           </Typography>
           <Typography gutterBottom>
-            Het programma hiernaast geeft een leidraad waar in de digitale tuin je op welk moment moet zijn. De eerste stap is om op de inloop marker te klikken en vervolgens naar de meeting link te gaan.
+            Het programma hieronder geeft aan waar je op welk moment moet zijn.De eerste stap is om hieronder op de knop 'naar de tuin' te klikken en vervolgens op de rode marker. Deze marker geeft je een meeting link. Klik hierop om contact te maken met de ceremonie meester.
           </Typography>
           <Typography gutterBottom>
             Mocht je technische problemen ondervinden in de digitale tuin bel dan Minghai op <Link color='primary' href='tel:+31658807827'>+31 6 58807827</Link>.
           </Typography>
         </section>
 
-        <Typography 
-          variant="h1" 
-          component="h1" 
-          color='primary' 
+        <Typography
+          variant="h1"
+          component="h1"
+          color='primary'
           className='brush'
           style={{ marginTop: '0px' }}
         >

@@ -6,13 +6,14 @@ import './SubmitMessage.css';
 
 class SubmitMessage extends Component {
 
-  state = {'bericht':'', 'image':''}
+  state = {'bericht':'', 'image':'', 'loaded': false}
 
   setName = (e)=>{
     this.setState({bericht:e.target.value})
   }
 
   sent = async (e)=>{
+    this.setState({loaded:false})
     let form = {'formName':'chat' , 'answers':[{'type':'text','question':'Naam', 'answer':this.props.name},{'type':'text', 'question':'Bericht', 'answer':this.state.bericht}]}
     let polygonId
 
@@ -26,7 +27,7 @@ class SubmitMessage extends Component {
 
     if (this.state.image ==='') {
       body = {'mapId':this.props.mapId, 'timestamp': 0, 'type':'polygon', 'elementId':polygonId, 'form':form }
-    } 
+    }
     else {
       body = {'mapId':this.props.mapId, 'timestamp': 0, 'type':'polygon', 'elementId':polygonId, 'form':form, 'image':this.state.image }
     }
@@ -37,6 +38,7 @@ class SubmitMessage extends Component {
   }
 
   upload = (evt) =>{
+    this.setState({loaded:true})
     let reader = new FileReader()
     let file = evt.target.files[0]
     let self = this
@@ -48,7 +50,7 @@ class SubmitMessage extends Component {
     //this.setState({image:e.target.value})
   }
 
-render() {  
+render() {
   let type = this.props.type;
 
   return (
@@ -73,20 +75,20 @@ render() {
             capture='camera'
           />
           <label htmlFor='photo-upload-input'>
-            <Button 
+            <Button
               className={`${type}-submitmessage-photo-button`}
-              variant='contained' 
-              color='primary' 
+              variant='contained'
+              color='primary'
               component='span'
             >
-              Voeg foto toe
+              {this.state.loaded ? 'Foto toegevoegd' : 'Voeg foto toe'}
             </Button>
           </label>
         </div>
         <div>
-        <Button 
+        <Button
           className={`${type}-submitmessage-submit-button`}
-          variant='contained' 
+          variant='contained'
           color='primary'
           onClick={this.sent}
         >
