@@ -168,10 +168,13 @@ class Tuin extends Component {
             </Typography>
             {
               layer === 'ceremonie'
-              ? <Button color='primary' onClick={this.toCeremonie}>Ga naar ceremonie</Button>
-              : <Link href={`https://${feature.properties.link}`} target='_blank'>
-                  {`https://${feature.properties.link}`}
-                </Link>
+                ? 
+                  <Link href={`https://meet.google.com/svf-xnwt-fij`} target='_blank'>
+                    {`https://meet.google.com/svf-xnwt-fij`}
+                  </Link>
+                : <Link href={`https://${feature.properties.link}`} target='_blank'>
+                    {`https://${feature.properties.link}`}
+                  </Link>
             }
           </Popup>
         </CircleMarker>
@@ -218,7 +221,7 @@ class Tuin extends Component {
           key={'photoMarker_' + index}
         >
           <Popup>
-            <Button color='primary' onClick={this.showPhoto.bind(this, messages.messages[0].id)}>Foto van locatie</Button>
+            <Button color='primary' onClick={this.showPhoto.bind(this, messages.messages[0].id)}>Klik voor foto van locatie</Button>
           </Popup>
         </CircleMarker>
       );
