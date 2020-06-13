@@ -1,0 +1,14 @@
+.fotoboek-grid {
+  margin-top: 24px;
+}
+
+.fotoboek-grid button
+{
+	height: 100%;
+	width: 100%;
+	padding: 0;
+}
+
+.fotoboek-grid div.MuiGrid-item, .fotoboek-grid div.MuiPaper-root, .fotoboek-grid div.MuiGrid-item img {
+	border-radius: 5px;
+}

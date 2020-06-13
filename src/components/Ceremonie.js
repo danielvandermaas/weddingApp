@@ -5,15 +5,8 @@ import Container from '@material-ui/core/Container';
 class Ceremonie extends Component {
   render() {
     return (<div className='wedding-content'>
-      <Container maxWidth="md">
-        {/*<Button
-          style={{ marginBottom: '24px'  }}
-          variant='contained'
-          color='primary'
-          onClick={() => this.props.setOnScreen(['tuin'])}
-        >
-          Terug naar de tuin
-        </Button>*/}
+
+      <Container maxWidth="md">  
         <iframe
           width='100%'
           height='500px'
@@ -24,6 +17,8 @@ class Ceremonie extends Component {
           title='cermonieFrame'
         />
       </Container>
+
+
     </div>);
   }
 }

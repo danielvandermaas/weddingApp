@@ -7,9 +7,11 @@ import Fotoboek from './components/Fotoboek'
 import Gastenboek from './components/Gastenboek'
 import Tuin from './components/Tuin'
 import Foto from './components/Foto';
+import FotoTrouwdag from './components/FotoTrouwdag';
 import Chat from './components/Chat';
 import Video from './components/Video';
-import Ceremonie from './components/Ceremonie';
+import Trouwdag from './components/Trouwdag';
+import Inzendingen from './components/Inzendingen';
 
 import Button from '@material-ui/core/Button';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -34,12 +36,13 @@ class App extends Component {
 
       imageType: null,
 
-      openChat: true,
+      openChat: false,
 
       firstTime: null
     }
 
     this.fotoboek = React.createRef();
+    this.trouwdag = React.createRef();
   }
 
   setPosition = (e)=>{
@@ -98,13 +101,14 @@ class App extends Component {
 
   addOnScreen = (e) =>{
     let onScreen = [...this.state.onScreen]
-    onScreen.push('foto')
+    onScreen.push(e)
     this.setState({onScreen: onScreen})
   }
 
   removeFromScreen = (e)=>{
     let onScreen = [...this.state.onScreen]
     onScreen = onScreen.filter((el) => el !== 'foto')
+    onScreen = onScreen.filter((el) => el !== 'fotoTrouwdag')
     this.setState({onScreen: onScreen})
   }
 
@@ -174,6 +178,12 @@ class App extends Component {
       fotoboek = <Fotoboek ref={this.fotoboek} mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} setImageType={this.setImageType}/>
     }
 
+    let trouwdag;
+    if(this.state.onScreen.includes('trouwdag')){
+      trouwdag = <Trouwdag ref = {this.trouwdag} mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} setImageType={this.setImageType}/>
+    }
+
+
     let gastenboek;
     if(this.state.onScreen.includes('gastenboek')){
       gastenboek = <Gastenboek mapId={this.state.mapId} token = {this.state.token} setOnScreen = {this.setOnScreen} addOnScreen = {this.addOnScreen} setImageId = {this.setImageId} name = {this.state.name}/>
@@ -196,6 +206,10 @@ class App extends Component {
     if(this.state.onScreen.includes('foto')){
       foto = <Foto setOnScreen = {this.setOnScreen} imageId = {this.state.imageId} mapId = {this.state.mapId} removeFromScreen = {this.removeFromScreen} token = {this.state.token} imageType={this.state.imageType} fotoboekRef={this.fotoboek} setImageId = {this.setImageId} setImageType={this.setImageType}/>
     }
+    let fotoTrouwdag;
+    if(this.state.onScreen.includes('fotoTrouwdag')){
+      fotoTrouwdag = <FotoTrouwdag setOnScreen = {this.setOnScreen} imageId = {this.state.imageId} mapId = {this.state.mapId} removeFromScreen = {this.removeFromScreen} token = {this.state.token} imageType={this.state.imageType} fotoboekRef={this.trouwdag} setImageId = {this.setImageId} setImageType={this.setImageType}/>
+    }
 
   return (
     <div className="App">
@@ -205,11 +219,13 @@ class App extends Component {
           {login}
           {programma}
           {foto}
+          {fotoTrouwdag}
           {fotoboek}
           {gastenboek}
           {tuin}
           {this.state.onScreen.includes('video') ? <Video setOnScreen = {this.setOnScreen}/> : null}
-          {this.state.onScreen.includes('ceremonie') ? <Ceremonie setOnScreen = {this.setOnScreen}/> : null}
+          {trouwdag}
+          {this.state.onScreen.includes('inzendingen') ? <Inzendingen setOnScreen = {this.setOnScreen}/> : null}
         </section>
         <section id='chat'>
           {chat}

@@ -28,7 +28,10 @@ class Menu extends Component {
       this.props.setOnScreen(['video']);
     }
     else if (newValue === 4) {
-      this.props.setOnScreen(['ceremonie']);
+      this.props.setOnScreen(['trouwdag']);
+    }
+    else if (newValue === 5) {
+      this.props.setOnScreen(['inzendingen']);
     }
   }
 
@@ -47,8 +50,11 @@ class Menu extends Component {
       else if (onScreen.includes('video')) {
         value = 3;
       }
-      else if (onScreen.includes('ceremonie')) {
+      else if (onScreen.includes('trouwdag')) {
         value = 4;
+      }
+      else if (onScreen.includes('inzendingen')) {
+        value = 5;
       }
     }
 
@@ -71,7 +77,8 @@ class Menu extends Component {
           <Tab label="Gastenboek"/>
           <Tab label="Fotoboek"/>
           <Tab label="Bekijk de tuin"/>
-          <Tab label="Ceremonie"/>
+          <Tab label="Trouwdag"/>
+          <Tab label="Inzendingen"/>
         </Tabs>
       </div>
     );
